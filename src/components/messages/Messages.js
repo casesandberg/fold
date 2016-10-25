@@ -1,6 +1,6 @@
 import React from 'react'
 
-export class Triage extends React.Component {
+export class Messages extends React.Component {
   componentDidMount() {
     this.props.getMessages(this.props.accessToken, this.props.activeThread.message_ids)
   }
@@ -15,12 +15,36 @@ export class Triage extends React.Component {
       <div>
         { activeMessages.map((message) => {
           return (
-            <div key={ message.id }>
-              <div>{ message.snippet }</div>
-              <iframe
-                style={{ border: 'none', width: '100%', height: '300px' }}
-                srcDoc={ message.body }
-              />
+            <div
+              key={ message.id }
+              style={{
+                border: '1px solid #eee',
+                marginBottom: '-1px',
+                padding: '15px',
+                fontSize: '15px',
+              }}
+            >
+              { message.unread ? (
+                <div>
+                  <div>{ message.from[0].name } </div>
+                  <iframe
+                    style={{ border: 'none', width: '100%', height: '300px' }}
+                    srcDoc={ message.body }
+                  />
+                </div>
+              ) : (
+                <div
+                  style={{
+                    width: '100%',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  <span>{ message.from[0].name } </span>
+                  <span style={{ color: '#999' }}>{ message.snippet }</span>
+                </div>
+              ) }
             </div>
           )
         }) }
@@ -29,4 +53,4 @@ export class Triage extends React.Component {
   }
 }
 
-export default Triage
+export default Messages

@@ -15,10 +15,10 @@ export class Triage extends React.Component {
         <div>{ triageCount }</div>
 
         { activeThread ? (
-          <div>
-            <div>{ activeThread.subject }</div>
-            <div>{ activeThread.snippet }</div>
-
+          <div style={{ padding: '40px', maxWidth: '800px' }}>
+            <div style={{ fontSize: '24px', color: '#333' }}>{ activeThread.subject }</div>
+            <br />
+            <br />
             <Messages
               getMessages={ getMessages }
               accessToken={ accessToken }
