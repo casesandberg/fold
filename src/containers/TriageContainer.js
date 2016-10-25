@@ -7,7 +7,6 @@ import Triage from '../components/Triage'
 
 const mapStateToProps = state => ({
   accessToken: state.app.accessToken,
-  triageCount: state.threads.length,
   activeThread: state.threads[0],
   activeMessages: _.remove(state.messages, message =>
     _.includes(state.threads[0].message_ids, message.id)

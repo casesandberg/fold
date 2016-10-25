@@ -1,5 +1,7 @@
 import React from 'react'
 
+import FullFrame from '../common/FullFrame'
+
 export class Messages extends React.Component {
   componentDidMount() {
     this.props.getMessages(this.props.accessToken, this.props.activeThread.message_ids)
@@ -13,25 +15,23 @@ export class Messages extends React.Component {
     const { activeMessages } = this.props
     return (
       <div>
-        { activeMessages.map((message) => {
+        { activeMessages.map((message, i) => {
+          const last = i + 1 === activeMessages.length
           return (
             <div
               key={ message.id }
               style={{
                 border: '1px solid #eee',
                 marginBottom: '-1px',
-                padding: '15px',
+
                 fontSize: '15px',
               }}
             >
-              { message.unread ? (
-                <div>
-                  <div>{ message.from[0].name } </div>
-                  <iframe
-                    style={{ border: 'none', width: '100%', height: '300px' }}
-                    srcDoc={ message.body }
-                  />
-                </div>
+              { message.unread || last ? (
+                <FullFrame
+                  style={{ border: 'none', width: '100%', height: 'auto' }}
+                  body={ message.body }
+                />
               ) : (
                 <div
                   style={{
@@ -39,6 +39,7 @@ export class Messages extends React.Component {
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
+                    padding: '15px',
                   }}
                 >
                   <span>{ message.from[0].name } </span>
