@@ -1,6 +1,8 @@
 import React from 'react'
 import { getFromURI, objToString } from '../helpers/uri'
 
+import TriageContainer from '../containers/TriageContainer'
+
 export class App extends React.Component {
   componentDidMount() {
     this.props.initUser(getFromURI('access_token'))
@@ -20,7 +22,7 @@ export class App extends React.Component {
         Login
       </a>
     ) : (
-      <div>You Are Logged In!</div>
+      <TriageContainer />
     )
   }
 }
