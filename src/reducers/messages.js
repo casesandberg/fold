@@ -1,14 +1,31 @@
 import _ from 'lodash'
+import { combineReducers } from 'redux'
 
 export const GET_MESSAGES = 'THREADS/GET_MESSAGES'
 
-export default function messages(state = [], action) {
+const byId = (state = {}, action) => {
   switch (action.type) {
-    case GET_MESSAGES:
-      return [...state, ...action.messages]
+    case GET_MESSAGES: {
+      const messages = {}
+      _.each(action.messages, (message) => { messages[message.id] = message })
+      return { ...state, ...messages }
+    }
     default: return state
   }
 }
+
+const allIds = (state = [], action) => {
+  switch (action.type) {
+    case GET_MESSAGES:
+      return _.union(state, _.map(action.messages, 'id'))
+    default: return state
+  }
+}
+
+export default combineReducers({
+  byId,
+  allIds,
+})
 
 export const actions = {
   getMessages: (accessToken, messageIDs) => (dispatch) => {
@@ -23,10 +40,14 @@ export const actions = {
       })
     ).then((m) => {
       dispatch({ type: GET_MESSAGES, messages: m })
-    }).catch(err => console.log('err', err))
+    }).catch(err => console.log('err', err)) // eslint-disable-line
   },
 }
 
+const getAllMessages = state =>
+  state.allIds.map(id => state.byId[id])
+
 export const getMessagesByThreadID = (state, id) => {
-  return _.filter(state.messages, { thread_id: id })
+  const allMessages = getAllMessages(state.messages)
+  return _.filter(allMessages, { thread_id: id })
 }

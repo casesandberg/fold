@@ -14,7 +14,6 @@ export class Messages extends React.Component {
   }
   render() {
     const { activeMessages } = this.props
-    console.log(activeMessages.length)
     return (
       <div>
         { _.map(activeMessages, (message, i) => {
