@@ -1,6 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 
+import Message from './Message'
 import FullFrame from '../common/FullFrame'
 
 export class Messages extends React.Component {
@@ -19,34 +20,7 @@ export class Messages extends React.Component {
         { _.map(activeMessages, (message, i) => {
           const last = i + 1 === activeMessages.length
           return (
-            <div
-              key={ message.id }
-              style={{
-                border: '1px solid #eee',
-                marginBottom: '-1px',
-                fontSize: '15px',
-              }}
-            >
-              { message.unread || last ? (
-                <FullFrame
-                  style={{ border: 'none', width: '100%', height: 'auto' }}
-                  body={ message.body }
-                />
-              ) : (
-                <div
-                  style={{
-                    width: '100%',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    padding: '15px',
-                  }}
-                >
-                  <span>{ message.from[0].name } </span>
-                  <span style={{ color: '#999' }}>{ message.snippet }</span>
-                </div>
-              ) }
-            </div>
+            <Message key={ message.id } { ...message } last={ last } />
           )
         }) }
       </div>

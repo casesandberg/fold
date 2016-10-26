@@ -9,20 +9,23 @@ export const Sidebar = ({ threads, onSelect, activeThreadID }) => {
           background: '#eee',
         } : {}
         return (
-          <div onClick={ onSelect.bind(null, thread.id) } style={{
-            cursor: 'pointer',
-            fontSize: '15px',
-            padding: '15px',
-            ...active,
-          }}
+          <div
+            key={ thread.id }
+            onClick={ onSelect.bind(null, thread.id) }
+            style={{
+              cursor: 'pointer',
+              fontSize: '15px',
+              padding: '15px',
+              ...active,
+            }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <div style={{ color: '#999', whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis' }}
               >
-                { _.map(thread.participants, (person) => {
-                  return <span>{ person.name } </span>
+                { _.map(thread.participants, (person, i) => {
+                  return <span key={ i }>{ person.name } </span>
                 }) }
               </div>
               <div style={{ color: thread.unread ? '#2196F3' : '#999' }}>3:30pm</div>
