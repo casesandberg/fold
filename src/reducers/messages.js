@@ -26,3 +26,7 @@ export const actions = {
     }).catch(err => console.log('err', err))
   },
 }
+
+export const getMessagesByThreadID = (state, id) => {
+  return _.filter(state.messages, { thread_id: id })
+}

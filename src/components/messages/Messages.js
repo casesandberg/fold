@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 
 import FullFrame from '../common/FullFrame'
 
@@ -13,9 +14,10 @@ export class Messages extends React.Component {
   }
   render() {
     const { activeMessages } = this.props
+    console.log(activeMessages.length)
     return (
       <div>
-        { activeMessages.map((message, i) => {
+        { _.map(activeMessages, (message, i) => {
           const last = i + 1 === activeMessages.length
           return (
             <div
@@ -23,7 +25,6 @@ export class Messages extends React.Component {
               style={{
                 border: '1px solid #eee',
                 marginBottom: '-1px',
-
                 fontSize: '15px',
               }}
             >

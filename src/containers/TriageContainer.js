@@ -1,16 +1,15 @@
-import _ from 'lodash'
 import { connect } from 'react-redux'
-import { actions as threadActions } from '../reducers/threads'
-import { actions as messageActions } from '../reducers/messages'
+import { actions as threadActions, getThreadByID } from '../reducers/threads'
+import { actions as messageActions, getMessagesByThreadID } from '../reducers/messages'
 
 import Triage from '../components/Triage'
 
 const mapStateToProps = state => ({
   accessToken: state.app.accessToken,
-  activeThread: state.threads[0],
-  activeMessages: _.remove(state.messages, message =>
-    _.includes(state.threads[0].message_ids, message.id)
-  ),
+  threads: state.threads,
+  activeThread: getThreadByID(state, state.app.activeThreadID),
+  activeMessages: getMessagesByThreadID(state, state.app.activeThreadID),
+  activeThreadID: state.app.activeThreadID,
 })
 
 const TriageContainer = connect(

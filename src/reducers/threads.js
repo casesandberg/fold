@@ -2,6 +2,7 @@ import _ from 'lodash'
 
 export const GET_THREADS = 'THREADS/GET_THREADS'
 export const REMOVE_THREAD = 'THREADS/REMOVE_THREAD'
+export const SHOW_THREAD = 'THREADS/SHOW_THREAD'
 
 export default function threads(state = [], action) {
   const index = _.findIndex(state, thread => (thread.id === action.id))
@@ -47,4 +48,10 @@ export const actions = {
       console.log('err', err) // eslint-disable-line no-console
     })
   },
+
+  showThread: id => ({ type: SHOW_THREAD, id }),
+}
+
+export const getThreadByID = (state, id) => {
+  return _.filter(state.threads, { id })[0]
 }
