@@ -3,26 +3,36 @@ import _ from 'lodash'
 
 export const Sidebar = ({ threads, onSelect, activeThreadID }) => {
   return (
-    <div>
+    <div style={{ borderRight: '1px solid #f6f6f6' }}>
       { _.map(threads, (thread) => {
         const active = thread.id === activeThreadID ? {
-          background: '#eee',
+          background: '#E7EFFA',
+          boxShadow: 'inset -3px 0 #2196F3',
+        } : {}
+        const read = !thread.unread ? {
+          background: '#f6f6f6',
+          color: '#666',
         } : {}
         return (
           <div
             key={ thread.id }
             onClick={ onSelect.bind(null, thread.id) }
             style={{
+              marginBottom: '1px',
               cursor: 'pointer',
               fontSize: '15px',
               padding: '15px',
+              ...read,
               ...active,
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <div style={{ color: '#999', whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis' }}
+              <div
+                style={{
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
               >
                 { _.map(thread.participants, (person, i) => {
                   return <span key={ i }>{ person.name } </span>
@@ -34,14 +44,15 @@ export const Sidebar = ({ threads, onSelect, activeThreadID }) => {
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
-            fontWeight: 'bold' }}
+            fontWeight: thread.unread ? 'bold' : 'normal' }}
             >
               { thread.subject } { thread.message_ids.length > 1 ? `(${ thread.message_ids.length })` : null }
             </div>
             <div style={{ width: '100%',
             whiteSpace: 'nowrap',
             overflow: 'hidden',
-            textOverflow: 'ellipsis' }}
+            textOverflow: 'ellipsis',
+            color: '#999' }}
             >
               { thread.snippet }
             </div>
