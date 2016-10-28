@@ -9,9 +9,9 @@ var OFF = 'off'
 module.exports = {
   extends: 'airbnb',
   parser: 'babel-eslint',
-  "env": {
-    "browser": true,
-    "node": true
+  env: {
+    browser: true,
+    node: true
   },
   rules: {
     'react/jsx-curly-spacing': [ERROR, ALWAYS, { spacing: { objectLiterals: NEVER }}],
