@@ -1,53 +1,50 @@
 import _ from 'lodash'
+import { NYLAS_API } from '../../redux-nylas-middleware'
 
 export const GET_THREADS = 'THREADS/GET_THREADS'
-export const REMOVE_THREAD = 'THREADS/REMOVE_THREAD'
 export const SHOW_THREAD = 'THREADS/SHOW_THREAD'
 
-export default function threads(state = [], action) {
-  const index = _.findIndex(state, thread => (thread.id === action.id))
+export const REMOVE_REQUEST = 'THREADS/REMOVE_REQUEST'
+export const REMOVE_SUCCESS = 'THREADS/REMOVE_SUCCESS'
+export const REMOVE_FAILURE = 'THREADS/REMOVE_FAILURE'
 
+export const THREADS_REQUEST = 'THREADS/THREADS_REQUEST'
+export const THREADS_SUCCESS = 'THREADS/THREADS_SUCCESS'
+export const THREADS_FAILURE = 'THREADS/THREADS_FAILURE'
+
+export default function threads(state = [], action) {
   switch (action.type) {
-    case GET_THREADS:
-      return action.threads
-    case REMOVE_THREAD:
+    case THREADS_SUCCESS:
+      return action.response
+    case REMOVE_SUCCESS: {
+      const index = _.findIndex(state, thread => (thread.id === action.response.id))
+
       return [
         ...state.slice(0, index),
         ...state.slice(index + 1),
       ]
+    }
     default: return state
   }
 }
 
 export const actions = {
-  getThreads: accessToken => (dispatch) => {
-    return fetch('https://api.nylas.com/threads?in=inbox', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Basic ${ btoa(`${ accessToken }:`) }`,
-      },
-    }).then(data => data.json()).then((t) => {
-      dispatch({ type: GET_THREADS, threads: t })
-    }).catch((err) => {
-      console.log('err', err) // eslint-disable-line no-console
-    })
-  },
-  archiveThread: (accessToken, threadID, labels) => (dispatch) => {
-    const newLabels = _.map(_.filter(labels, label => (label.name !== 'inbox')), 'id')
-    return fetch(`https://api.nylas.com/threads/${ threadID }`, {
+  getThreads: () => ({
+    [NYLAS_API]: {
+      endpoint: 'threads?in=inbox',
+      types: [THREADS_REQUEST, THREADS_SUCCESS, THREADS_FAILURE],
+    },
+  }),
+  archiveThread: (threadID, labels) => ({
+    [NYLAS_API]: {
+      endpoint: `threads/${ threadID }`,
       method: 'PUT',
-      headers: {
-        'Authorization': `Basic ${ btoa(`${ accessToken }:`) }`,
+      types: [REMOVE_REQUEST, REMOVE_SUCCESS, REMOVE_FAILURE],
+      body: {
+        label_ids: _.map(_.filter(labels, label => (label.name !== 'inbox')), 'id'),
       },
-      body: JSON.stringify({
-        label_ids: newLabels,
-      }),
-    }).then(data => data.json()).then(({ id }) => {
-      dispatch({ type: REMOVE_THREAD, id })
-    }).catch((err) => {
-      console.log('err', err) // eslint-disable-line no-console
-    })
-  },
+    },
+  }),
 
   showThread: id => ({ type: SHOW_THREAD, id }),
 }

@@ -34,7 +34,7 @@ export const actions = {
         return fetch(`https://api.nylas.com/messages/${ messageID }`, {
           method: 'GET',
           headers: {
-            'Authorization': `Basic ${ btoa(`${ accessToken }:`) }`,
+            'Authorization': `Bearer ${ accessToken }`,
           },
         }).then(data => data.json())
       })

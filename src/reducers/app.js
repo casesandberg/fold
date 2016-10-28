@@ -18,5 +18,8 @@ export default function app(state = initialState, action) {
 }
 
 export const actions = {
-  initUser: accessToken => ({ type: INIT, accessToken }),
+  initUser: (accessToken) => {
+    localStorage.setItem('access_token', accessToken)
+    return { type: INIT, accessToken }
+  },
 }

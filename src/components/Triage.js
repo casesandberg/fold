@@ -52,8 +52,7 @@ export class Triage extends React.Component {
                     fontSize: '15px',
                     display: 'inline-block',
                   }}
-                  onClick={ archiveThread.bind(null, this.props.accessToken,
-                    activeThread.id, activeThread.labels) }
+                  onClick={ archiveThread.bind(null, activeThread.id, activeThread.labels) }
                 >
                   Archive
                 </div>

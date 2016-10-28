@@ -4,7 +4,7 @@ import _ from 'lodash'
 export const Sidebar = ({ threads, onSelect, activeThreadID }) => {
   return (
     <div style={{ borderRight: '1px solid #f6f6f6' }}>
-      { _.map(threads, (thread) => {
+      { _.map(threads, (thread, i) => {
         const active = thread.id === activeThreadID ? {
           background: '#E7EFFA',
           boxShadow: 'inset -3px 0 #2196F3',
@@ -15,7 +15,7 @@ export const Sidebar = ({ threads, onSelect, activeThreadID }) => {
         } : {}
         return (
           <div
-            key={ thread.id }
+            key={ thread.id + i }
             onClick={ onSelect.bind(null, thread.id) }
             style={{
               marginBottom: '1px',
