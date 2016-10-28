@@ -5,7 +5,7 @@ import TriageContainer from '../containers/TriageContainer'
 
 export class App extends React.Component {
   componentDidMount() {
-    this.props.initUser(getFromURI('access_token'))
+    this.props.setToken(getFromURI('access_token'))
   }
   render() {
     const { isAuthed } = this.props

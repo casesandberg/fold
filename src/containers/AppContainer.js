@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { actions } from '../reducers/app'
+import { actions } from '../../redux-nylas-middleware'
 
 import App from '../components/App'
 
