@@ -8,7 +8,7 @@ export const NYLAS_API = 'NYLAS/API'
 export const SET_TOKEN = 'NYLAS/SET_TOKEN'
 export const CLEAR_TOKEN = 'NYLAS/CLEAR_TOKEN'
 
-function callApi({ endpoint, method, token, body, options }) {
+function api({ endpoint, method, token, body, options }) {
   return fetch(options.baseURL + endpoint, {
     method: method || options.method,
     headers: options.headers || { 'Authorization': `Bearer ${ token }` },
@@ -28,17 +28,17 @@ export default (opts = {}) => () => next => (action) => {
 
   next({ type: REQUEST })
 
-  if (endpoints) {
-    return Promise.all(endpoints.map(singleEndpoint =>
-      callApi({ endpoint: singleEndpoint, method, options, token, body })
+  const apiCall = endpoints ? (
+    Promise.all(endpoints.map(singleEndpoint =>
+      api({ endpoint: singleEndpoint, method, options, token, body })
     ))
+  ) : (
+    api({ endpoint, method, options, token, body })
+  )
+
+  return apiCall
     .then(response => next({ type: SUCCESS, response }))
     .catch(error => next({ type: ERROR, error }))
-  }
-
-  return callApi({ endpoint, method, options, token, body })
-  .then(response => next({ type: SUCCESS, response }))
-  .catch(error => next({ type: ERROR, error }))
 }
 
 export const actions = {
