@@ -6,11 +6,11 @@ import FullFrame from '../common/FullFrame'
 
 export class Messages extends React.Component {
   componentDidMount() {
-    this.props.getMessages(this.props.accessToken, this.props.activeThread.message_ids)
+    this.props.getMessages(this.props.activeThread.message_ids)
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.activeThread.id !== nextProps.activeThread.id) {
-      this.props.getMessages(nextProps.accessToken, nextProps.activeThread.message_ids)
+      this.props.getMessages(nextProps.activeThread.message_ids)
     }
   }
   render() {

@@ -1,13 +1,16 @@
 import _ from 'lodash'
 import { combineReducers } from 'redux'
+import { NYLAS_API } from '../../redux-nylas-middleware'
 
-export const GET_MESSAGES = 'THREADS/GET_MESSAGES'
+export const MESSAGES_REQUEST = 'THREADS/MESSAGES_REQUEST'
+export const MESSAGES_SUCCESS = 'THREADS/MESSAGES_SUCCESS'
+export const MESSAGES_FAILURE = 'THREADS/MESSAGES_FAILURE'
 
 const byId = (state = {}, action) => {
   switch (action.type) {
-    case GET_MESSAGES: {
+    case MESSAGES_SUCCESS: {
       const messages = {}
-      _.each(action.messages, (message) => { messages[message.id] = message })
+      _.each(action.response, (message) => { messages[message.id] = message })
       return { ...state, ...messages }
     }
     default: return state
@@ -16,8 +19,8 @@ const byId = (state = {}, action) => {
 
 const allIds = (state = [], action) => {
   switch (action.type) {
-    case GET_MESSAGES:
-      return _.union(state, _.map(action.messages, 'id'))
+    case MESSAGES_SUCCESS:
+      return _.union(state, _.map(action.response, 'id'))
     default: return state
   }
 }
@@ -28,20 +31,12 @@ export default combineReducers({
 })
 
 export const actions = {
-  getMessages: (accessToken, messageIDs) => (dispatch) => {
-    return Promise.all(
-      _.map(messageIDs, (messageID) => {
-        return fetch(`https://api.nylas.com/messages/${ messageID }`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${ accessToken }`,
-          },
-        }).then(data => data.json())
-      })
-    ).then((m) => {
-      dispatch({ type: GET_MESSAGES, messages: m })
-    }).catch(err => console.log('err', err)) // eslint-disable-line
-  },
+  getMessages: messageIDs => ({
+    [NYLAS_API]: {
+      endpoints: _.map(messageIDs, id => (`messages/${ id }`)),
+      types: [MESSAGES_REQUEST, MESSAGES_SUCCESS, MESSAGES_FAILURE],
+    },
+  }),
 }
 
 const getAllMessages = state =>
