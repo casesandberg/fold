@@ -1,7 +1,9 @@
 import React from 'react'
+import reactCSS from 'reactcss'
 import { chopQuotedText } from '../../helpers/email'
 
 import FullFrame from '../common/FullFrame'
+import MessageItemSnippet from './MessageItemSnippet'
 
 export class MessageItem extends React.Component {
   constructor(props) {
@@ -16,35 +18,32 @@ export class MessageItem extends React.Component {
   }
 
   render() {
-    const { body, from, snippet } = this.props
+    const { body, from, snippet, date } = this.props
+
+    const styles = reactCSS({
+      'default': {
+        message: {
+          background: '#fff',
+          boxShadow: '0 2px 5px rgba(0,0,0,.1), 0 0 2px rgba(0,0,0,.1)',
+          marginBottom: '1px',
+        },
+      },
+    })
+
     return (
-      <div
-        style={{
-          border: '1px solid #eee',
-          marginBottom: '-1px',
-          fontSize: '15px',
-        }}
-      >
+      <div style={ styles.message }>
         { this.state.isExpanded ? (
           <FullFrame
             style={{ border: 'none', width: '100%', height: '1px' }}
             body={ chopQuotedText(body) }
           />
         ) : (
-          <div
-            style={{
-              width: '100%',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              padding: '15px',
-              cursor: 'pointer',
-            }}
+          <MessageItemSnippet
+            from={ from }
+            snippet={ snippet }
+            timestamp={ date }
             onClick={ this.handleExpand }
-          >
-            <span>{ from[0].name } </span>
-            <span style={{ color: '#999' }}>{ snippet }</span>
-          </div>
+          />
         ) }
       </div>
     )

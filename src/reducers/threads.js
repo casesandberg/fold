@@ -13,7 +13,7 @@ export const THREADS_SUCCESS = 'THREADS/THREADS_SUCCESS'
 export const THREADS_FAILURE = 'THREADS/THREADS_FAILURE'
 
 export const initialState = {
-  activeThreadID: '',
+  activeThreadID: '54veharelu3g79udtyflyf0ha',
   threads: [],
 }
 

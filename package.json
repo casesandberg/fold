@@ -33,6 +33,8 @@
   },
   "dependencies": {
     "lodash": "^4.16.2",
+    "moment": "^2.15.2",
+    "moment-twitter": "^0.2.0",
     "normalize.css": "^5.0.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
