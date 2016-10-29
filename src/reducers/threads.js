@@ -41,7 +41,7 @@ export const actions = {
       method: 'PUT',
       types: [REMOVE_REQUEST, REMOVE_SUCCESS, REMOVE_FAILURE],
       body: {
-        label_ids: _.map(_.filter(labels, label => (label.name !== 'inbox')), 'id'),
+        label_ids: _(labels).reject({ name: 'inbox' }).map('id'),
       },
     },
   }),
