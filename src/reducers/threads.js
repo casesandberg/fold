@@ -12,17 +12,28 @@ export const THREADS_REQUEST = 'THREADS/THREADS_REQUEST'
 export const THREADS_SUCCESS = 'THREADS/THREADS_SUCCESS'
 export const THREADS_FAILURE = 'THREADS/THREADS_FAILURE'
 
-export default function threads(state = [], action) {
-  switch (action.type) {
-    case THREADS_SUCCESS:
-      return action.response
-    case REMOVE_SUCCESS: {
-      const index = _.findIndex(state, thread => (thread.id === action.response.id))
+export const initialState = {
+  activeThreadID: '',
+  threads: [],
+}
 
-      return [
-        ...state.slice(0, index),
-        ...state.slice(index + 1),
-      ]
+export default function threads(state = initialState, action) {
+  switch (action.type) {
+    case SHOW_THREAD:
+      return { ...state, activeThreadID: action.id }
+    case THREADS_SUCCESS:
+      return { ...state, threads: action.response }
+    case REMOVE_SUCCESS: {
+      const index = _.findIndex(state.threads, thread => (thread.id === action.response.id))
+
+      return {
+        ...state,
+        activeThreadID: state.threads[index + 1].id,
+        threads: [
+          ...state.threads.slice(0, index),
+          ...state.threads.slice(index + 1),
+        ],
+      }
     }
     default: return state
   }
@@ -50,5 +61,9 @@ export const actions = {
 }
 
 export const getThreadByID = (state, id) => {
-  return _.filter(state.threads, { id })[0]
+  return _.filter(state.threads.threads, { id })[0]
+}
+
+export const getActiveThread = (state) => {
+  return _.filter(state.threads.threads, { id: state.threads.activeThreadID })[0]
 }

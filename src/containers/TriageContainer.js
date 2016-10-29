@@ -1,15 +1,15 @@
 import { connect } from 'react-redux'
-import { actions as threadActions, getThreadByID } from '../reducers/threads'
+import { actions as threadActions, getActiveThread } from '../reducers/threads'
 import { actions as messageActions, getMessagesByThreadID } from '../reducers/messages'
 
 import Triage from '../components/Triage'
 
 const mapStateToProps = state => ({
   accessToken: state.app.accessToken,
-  threads: state.threads,
-  activeThread: getThreadByID(state, state.app.activeThreadID),
-  activeMessages: getMessagesByThreadID(state, state.app.activeThreadID),
-  activeThreadID: state.app.activeThreadID,
+  threads: state.threads.threads,
+  activeThread: getActiveThread(state),
+  activeMessages: getMessagesByThreadID(state, state.threads.activeThreadID),
+  activeThreadID: state.threads.activeThreadID,
 })
 
 const TriageContainer = connect(
