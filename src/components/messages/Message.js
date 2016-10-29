@@ -27,7 +27,7 @@ export class Messages extends React.Component {
       >
         { this.state.isExpanded ? (
           <FullFrame
-            style={{ border: 'none', width: '100%', height: 'auto' }}
+            style={{ border: 'none', width: '100%', height: '1px' }}
             body={ chopQuotedText(body) }
           />
         ) : (
