@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { combineReducers } from 'redux'
-import { NYLAS_API } from '../../redux-nylas-middleware'
+import { NYLAS_API } from 'redux-nylas-middleware'
 
 export const MESSAGES_REQUEST = 'THREADS/MESSAGES_REQUEST'
 export const MESSAGES_SUCCESS = 'THREADS/MESSAGES_SUCCESS'

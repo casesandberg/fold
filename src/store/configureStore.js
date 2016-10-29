@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
-import createNylas from '../../redux-nylas-middleware'
+import createNylas from 'redux-nylas-middleware'
 import rootReducer from '../reducers'
 
 

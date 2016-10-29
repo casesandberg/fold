@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { NYLAS_API } from '../../redux-nylas-middleware'
+import { NYLAS_API } from 'redux-nylas-middleware'
 
 export const GET_THREADS = 'THREADS/GET_THREADS'
 export const SHOW_THREAD = 'THREADS/SHOW_THREAD'

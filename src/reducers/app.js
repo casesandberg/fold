@@ -1,5 +1,5 @@
 import * as THREADS from './threads'
-import * as NYLAS from '../../redux-nylas-middleware'
+import * as NYLAS from 'redux-nylas-middleware'
 
 
 export const INIT = 'APP/INIT'
