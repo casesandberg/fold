@@ -3,7 +3,7 @@ import { chopQuotedText } from '../../helpers/email'
 
 import FullFrame from '../common/FullFrame'
 
-export class Messages extends React.Component {
+export class MessageItem extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -51,4 +51,4 @@ export class Messages extends React.Component {
   }
 }
 
-export default Messages
+export default MessageItem

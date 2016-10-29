@@ -1,8 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 
-import Message from './Message'
-import FullFrame from '../common/FullFrame'
+import MessageItem from './MessageItem'
 
 export class Messages extends React.Component {
   componentDidMount() {
@@ -20,7 +19,7 @@ export class Messages extends React.Component {
         { _.map(activeMessages, (message, i) => {
           const last = i + 1 === activeMessages.length
           return (
-            <Message key={ message.id } { ...message } last={ last } />
+            <MessageItem key={ message.id } { ...message } last={ last } />
           )
         }) }
       </div>
