@@ -1,22 +1,19 @@
 import React from 'react'
 
 import Messages from './messages/Messages'
-import Sidebar from './sidebar/Sidebar'
+import SidebarContainer from '../containers/SidebarContainer'
 
 export class Triage extends React.Component {
   componentDidMount() {
-    this.props.getThreads(this.props.accessToken).then(() => {
-      this.props.showThread(this.props.threads[0].id)
-    })
+    this.props.getThreads()
   }
   render() {
-    const { activeThread, activeMessages, archiveThread, accessToken,
-      getMessages, threads, showThread, activeThreadID } = this.props
+    const { activeThread, activeMessages, archiveThread, getMessages } = this.props
 
     return (
       <div style={{ display: 'flex', position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 }}>
         <div style={{ width: '300px', overflow: 'scroll' }}>
-          <Sidebar threads={ threads } onSelect={ showThread } activeThreadID={ activeThreadID } />
+          <SidebarContainer />
         </div>
         <div style={{ flex: '1', position: 'relative' }}>
           { activeThread ? (
@@ -36,7 +33,6 @@ export class Triage extends React.Component {
                 <div style={{ fontSize: '24px', color: '#333', paddingBottom: '20px', paddingTop: '40px' }}>{ activeThread.subject }</div>
                 <Messages
                   getMessages={ getMessages }
-                  accessToken={ accessToken }
                   activeThread={ activeThread }
                   activeMessages={ activeMessages }
                 />

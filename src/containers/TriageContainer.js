@@ -5,11 +5,8 @@ import { actions as messageActions, getMessagesByThreadID } from '../reducers/me
 import Triage from '../components/Triage'
 
 const mapStateToProps = state => ({
-  accessToken: state.app.accessToken,
-  threads: state.threads.threads,
   activeThread: getActiveThread(state),
   activeMessages: getMessagesByThreadID(state, state.threads.activeThreadID),
-  activeThreadID: state.threads.activeThreadID,
 })
 
 const TriageContainer = connect(
