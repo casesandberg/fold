@@ -1,4 +1,5 @@
 import React from 'react'
+import { chopQuotedText } from '../../helpers/email'
 
 import FullFrame from '../common/FullFrame'
 
@@ -27,7 +28,7 @@ export class Messages extends React.Component {
         { this.state.isExpanded ? (
           <FullFrame
             style={{ border: 'none', width: '100%', height: 'auto' }}
-            body={ body }
+            body={ chopQuotedText(body) }
           />
         ) : (
           <div
