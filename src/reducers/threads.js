@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import { NYLAS_API } from 'redux-nylas-middleware'
 
+import * as MESSAGES from './messages'
+
 export const GET_THREADS = 'THREADS/GET_THREADS'
 export const SHOW_THREAD = 'THREADS/SHOW_THREAD'
 
@@ -13,7 +15,7 @@ export const THREADS_SUCCESS = 'THREADS/THREADS_SUCCESS'
 export const THREADS_FAILURE = 'THREADS/THREADS_FAILURE'
 
 export const initialState = {
-  activeThreadID: 'dq873l8m90zyqnpb93zdz8xc9',
+  activeThreadID: 'edxjoxv0e86mez97jz9dz4h4w',
   threads: [],
 }
 
@@ -31,6 +33,18 @@ export default function threads(state = initialState, action) {
         activeThreadID: state.threads[index + 1].id,
         threads: [
           ...state.threads.slice(0, index),
+          ...state.threads.slice(index + 1),
+        ],
+      }
+    }
+    case MESSAGES.SEND_SUCCESS: {
+      const index = _.findIndex(state.threads, thread => (thread.id === action.response.thread_id))
+      return {
+        ...state,
+        threads: [
+          ...state.threads.slice(0, index),
+          { ...state.threads[index],
+            message_ids: [...state.threads[index].message_ids, action.response.id] },
           ...state.threads.slice(index + 1),
         ],
       }

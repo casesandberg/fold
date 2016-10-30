@@ -2,9 +2,15 @@ import _ from 'lodash'
 import { combineReducers } from 'redux'
 import { NYLAS_API } from 'redux-nylas-middleware'
 
-export const MESSAGES_REQUEST = 'THREADS/MESSAGES_REQUEST'
-export const MESSAGES_SUCCESS = 'THREADS/MESSAGES_SUCCESS'
-export const MESSAGES_FAILURE = 'THREADS/MESSAGES_FAILURE'
+export const EDIT_DRAFT = 'MESSAGES/EDIT_DRAFT'
+
+export const MESSAGES_REQUEST = 'MESSAGES/MESSAGES_REQUEST'
+export const MESSAGES_SUCCESS = 'MESSAGES/MESSAGES_SUCCESS'
+export const MESSAGES_FAILURE = 'MESSAGES/MESSAGES_FAILURE'
+
+export const SEND_REQUEST = 'MESSAGES/SEND_REQUEST'
+export const SEND_SUCCESS = 'MESSAGES/SEND_SUCCESS'
+export const SEND_FAILURE = 'MESSAGES/SEND_FAILURE'
 
 const byId = (state = {}, action) => {
   switch (action.type) {
@@ -13,6 +19,8 @@ const byId = (state = {}, action) => {
       _.each(action.response, (message) => { messages[message.id] = message })
       return { ...state, ...messages }
     }
+    case SEND_SUCCESS:
+      return { ...state, [action.response.id]: action.response }
     default: return state
   }
 }
@@ -21,6 +29,21 @@ const allIds = (state = [], action) => {
   switch (action.type) {
     case MESSAGES_SUCCESS:
       return _.union(state, _.map(action.response, 'id'))
+    case SEND_SUCCESS:
+      return [...state, action.response.id]
+    default: return state
+  }
+}
+
+
+const drafts = (state = {}, action) => {
+  switch (action.type) {
+    case EDIT_DRAFT: {
+      const id = action.message.thread_id
+      return { ...state, [id]: { ...state[id], ...action.message } }
+    }
+    case SEND_SUCCESS:
+      return [...state, [action.response.thread_id]: {}]
     default: return state
   }
 }
@@ -28,6 +51,7 @@ const allIds = (state = [], action) => {
 export default combineReducers({
   byId,
   allIds,
+  drafts,
 })
 
 export const actions = {
@@ -37,6 +61,17 @@ export const actions = {
       types: [MESSAGES_REQUEST, MESSAGES_SUCCESS, MESSAGES_FAILURE],
     },
   }),
+
+  reply: body => ({
+    [NYLAS_API]: {
+      endpoint: 'send',
+      method: 'POST',
+      types: [SEND_REQUEST, SEND_SUCCESS, SEND_FAILURE],
+      body,
+    },
+  }),
+
+  editDraft: message => ({ type: EDIT_DRAFT, message }),
 }
 
 const getAllMessages = state =>

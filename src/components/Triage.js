@@ -12,7 +12,7 @@ export class Triage extends React.Component {
   }
   render() {
     const { activeThread, activeMessages, archiveThread, getMessages,
-      isSidebarVisible } = this.props
+      isSidebarVisible, editDraft, activeDraft, reply } = this.props
 
     const styles = reactCSS({
       'default': {
@@ -76,7 +76,13 @@ export class Triage extends React.Component {
           </div>
 
           <div style={ styles.actions }>
-            <ThreadActions activeThread={ activeThread } archiveThread={ archiveThread } />
+            <ThreadActions
+              activeThread={ activeThread }
+              archiveThread={ archiveThread }
+              editDraft={ editDraft }
+              draft={ activeDraft }
+              reply={ reply }
+            />
           </div>
         </div>
       </div>

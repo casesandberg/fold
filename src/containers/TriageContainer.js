@@ -7,6 +7,8 @@ import Triage from '../components/Triage'
 const mapStateToProps = state => ({
   activeThread: getActiveThread(state),
   activeMessages: getMessagesByThreadID(state, state.threads.activeThreadID),
+  activeDraft: state.messages.drafts[getActiveThread(state) &&
+    getActiveThread(state).id] || {},
   isSidebarVisible: state.app.isSidebarVisible,
 })
 

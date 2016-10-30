@@ -1,7 +1,7 @@
 import React from 'react'
 import reactCSS from 'reactcss'
 
-export const ThreadActions = ({ archiveThread, activeThread }) => {
+export const ThreadActions = ({ archiveThread, activeThread, editDraft, draft, reply }) => {
   const styles = reactCSS({
     'default': {
       actions: {
@@ -40,14 +40,41 @@ export const ThreadActions = ({ archiveThread, activeThread }) => {
   })
 
   const handleArchive = () => activeThread && archiveThread(activeThread.id, activeThread.labels)
+  const handleChange = e => editDraft({
+    'body': e.target.value,
+    'reply_to_message_id': activeThread.message_ids[activeThread.message_ids.length - 1],
+    'thread_id': activeThread.id,
+    'to': [
+      {
+        'name': 'Case',
+        'email': 'case@casesandberg.com',
+      },
+    ],
+    'from': [
+      {
+        'name': 'Case',
+        'email': 'case@casesandberg.com',
+      },
+    ],
+  })
+
+  const handleSend = () => reply(draft)
 
   return (
     <div style={ styles.actions }>
       <div style={ styles.replyWrap }>
-        <textarea placeholder="Reply" style={ styles.reply } />
+        <textarea
+          value={ draft.body }
+          onChange={ handleChange }
+          placeholder="Reply"
+          style={ styles.reply }
+        />
       </div>
 
       <div style={ styles.buttons }>
+        { draft && draft.body && draft.body.trim() !== '' ? (
+          <div onClick={ handleSend }>SEND</div>
+        ) : null }
         <div style={ styles.button } onClick={ handleArchive }>
           <svg style={{ width: '24px', height: '24px' }} viewBox="0 0 24 24">
             <path fill="#aaa" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" />
