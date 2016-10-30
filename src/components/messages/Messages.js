@@ -2,6 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 
 import MessageItem from './MessageItem'
+import SquashedMessages from './SquashedMessages'
 
 export class Messages extends React.Component {
   componentDidMount() {
@@ -14,14 +15,25 @@ export class Messages extends React.Component {
   }
   render() {
     const { activeMessages } = this.props
+    const length = activeMessages.length
+    const squashedMessages = activeMessages.slice(1, length - 2)
     return (
       <div>
-        { _.map(activeMessages, (message, i) => {
-          const last = i + 1 === activeMessages.length
-          return (
-            <MessageItem key={ message.id } { ...message } last={ last } />
-          )
-        }) }
+        { length > 4 ? (
+          <div>
+            <MessageItem key={ activeMessages[0].id } { ...activeMessages[0] } />
+            <SquashedMessages messages={ squashedMessages } />
+            <MessageItem key={ activeMessages[length - 2].id } { ...activeMessages[length - 2] } />
+            <MessageItem key={ activeMessages[length - 1].id } { ...activeMessages[length - 1] } />
+          </div>
+        ) : (
+          _.map(activeMessages, (message, i) => {
+            const last = i + 1 === activeMessages.length
+            return (
+              <MessageItem key={ message.id } { ...message } last={ last } />
+            )
+          })
+        ) }
       </div>
     )
   }
