@@ -1,21 +1,23 @@
-import webpack from 'webpack'
-import validate from 'webpack-validator'
-import merge from 'webpack-merge'
-import baseConfig from './webpack.config.base'
+/* eslint-disable */
 
-const port = process.env.PORT || 8517
+var webpack = require('webpack')
+var validate = require('webpack-validator')
+var merge = require('webpack-merge')
+var baseConfig = require('./webpack.config.base')
 
-export default validate(merge(baseConfig, {
+var port = process.env.PORT || 8517
+
+module.exports = validate(merge(baseConfig, {
   debug: true,
   devtool: 'eval',
 
   entry: [
-    `webpack-hot-middleware/client?path=http://localhost:${ port }/__webpack_hmr`,
+    'webpack-hot-middleware/client?path=http://localhost:' +  port + '/__webpack_hmr',
     './src/index',
   ],
 
   output: {
-    publicPath: `http://localhost:${ port }/dist/`,
+    publicPath: 'http://localhost:' + port + '/dist/',
   },
 
   plugins: [

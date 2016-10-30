@@ -1,12 +1,26 @@
-import path from 'path'
-import validate from 'webpack-validator'
+/* eslint-disable */
 
-export default validate({
+var path = require('path')
+var validate = require('webpack-validator')
+
+module.exports = validate({
   module: {
     loaders: [{
       test: /\.js?$/,
-      loaders: ['babel'],
+      loader: 'babel',
       exclude: /node_modules/,
+      query: {
+        presets: [
+          'es2015',
+          'stage-0',
+          'react'
+        ],
+        env: {
+          development: {
+            presets: ['react-hmre']
+          },
+        }
+      }
     }],
   },
 

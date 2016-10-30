@@ -1,11 +1,11 @@
-/* eslint-disable no-console */
+/* eslint-disable */
 
-import express from 'express'
-import webpack from 'webpack'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackHotMiddleware from 'webpack-hot-middleware'
+var express = require('express')
+var webpack = require('webpack')
+var webpackDevMiddleware = require('webpack-dev-middleware')
+var webpackHotMiddleware = require('webpack-hot-middleware')
 
-import config from '../webpack.config.development'
+var config = require('../webpack.config.development')
 
 const app = express()
 const compiler = webpack(config)
@@ -22,7 +22,7 @@ app.use(webpackHotMiddleware(compiler))
 app.use('/', express.static('src'))
 
 
-app.listen(PORT, 'localhost', (err) => {
+app.listen(PORT, 'localhost', function (err) {
   if (err) { console.error(err); return }
   console.log(`Listening at http://localhost:${ PORT }`)
 })
