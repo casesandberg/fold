@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { getActiveThread } from '../reducers/threads'
+import { actions } from '../reducers/app'
 
 import Header from '../components/Header'
 
@@ -8,7 +9,8 @@ const mapStateToProps = state => ({
 })
 
 const HeaderContainer = connect(
-  mapStateToProps
+  mapStateToProps,
+  actions
 )(Header)
 
 export default HeaderContainer

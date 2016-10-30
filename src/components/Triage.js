@@ -11,7 +11,7 @@ export class Triage extends React.Component {
     this.props.getThreads()
   }
   render() {
-    const { activeThread, activeMessages, archiveThread, getMessages, showSidebar } = this.props
+    const { activeThread, activeMessages, archiveThread, getMessages, isSidebarVisible } = this.props
 
     const styles = reactCSS({
       'default': {
@@ -30,10 +30,23 @@ export class Triage extends React.Component {
           flexDirection: 'column',
           justifyContent: 'space-between',
         },
+        messages: {
+          flex: '1',
+          overflow: 'auto',
+          padding: '0 10px',
+          margin: '0 -10px',
+        },
+        messagesList: {
+          paddingBottom: '100px',
+        },
         sidebar: {
           width: '300px',
           overflow: 'scroll',
           marginRight: '30px',
+        },
+        actions: {
+          position: 'relative',
+          zIndex: '2',
         },
       },
     })
@@ -41,7 +54,7 @@ export class Triage extends React.Component {
     return (
       <div style={ styles.wrap }>
 
-        { showSidebar ? (
+        { isSidebarVisible ? (
           <div style={ styles.sidebar }>
             <SidebarContainer />
           </div>
@@ -51,15 +64,19 @@ export class Triage extends React.Component {
           <div style={ styles.messages }>
             <HeaderContainer />
             { activeThread ? (
-              <Messages
-                getMessages={ getMessages }
-                activeThread={ activeThread }
-                activeMessages={ activeMessages }
-              />
+              <div style={ styles.messagesList }>
+                <Messages
+                  getMessages={ getMessages }
+                  activeThread={ activeThread }
+                  activeMessages={ activeMessages }
+                />
+              </div>
             ) : null }
           </div>
 
-          <ThreadActions activeThread={ activeThread } archiveThread={ archiveThread } />
+          <div style={ styles.actions }>
+            <ThreadActions activeThread={ activeThread } archiveThread={ archiveThread } />
+          </div>
         </div>
       </div>
     )
