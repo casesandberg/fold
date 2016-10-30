@@ -11,7 +11,8 @@ export class Triage extends React.Component {
     this.props.getThreads()
   }
   render() {
-    const { activeThread, activeMessages, archiveThread, getMessages, isSidebarVisible } = this.props
+    const { activeThread, activeMessages, archiveThread, getMessages,
+      isSidebarVisible } = this.props
 
     const styles = reactCSS({
       'default': {
@@ -22,7 +23,7 @@ export class Triage extends React.Component {
           justifyContent: 'center',
         },
         triage: {
-          maxWidth: '600px',
+          maxWidth: '630px',
           width: '100%',
           fontFamily: 'Roboto',
           fontSize: '1.6rem',

@@ -6,10 +6,11 @@ export const ThreadActions = ({ archiveThread, activeThread }) => {
     'default': {
       actions: {
         background: '#fff',
-        boxShadow: '0 2px 5px rgba(0,0,0,.1), 0 0 2px rgba(0,0,0,.1)',
+        boxShadow: '0 2px 5px rgba(0,0,0,.1), 0 0 2px rgba(0,0,0,.1), 0px -20px 10px #fafafa',
         borderRadius: '2px',
         height: '54px',
         marginBottom: '20px',
+        marginTop: '10px',
         display: 'flex',
         justifyContent: 'space-between',
       },

@@ -1,6 +1,6 @@
 import React from 'react'
 import reactCSS from 'reactcss'
-import { chopQuotedText } from '../../helpers/email'
+import { formatEmail } from '../../helpers/email'
 
 import FullFrame from '../common/FullFrame'
 import MessageItemSnippet from './MessageItemSnippet'
@@ -35,7 +35,7 @@ export class MessageItem extends React.Component {
         { this.state.isExpanded ? (
           <FullFrame
             style={{ border: 'none', width: '100%', height: '1px' }}
-            body={ chopQuotedText(body) }
+            body={ formatEmail(body) }
           />
         ) : (
           <MessageItemSnippet

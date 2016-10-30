@@ -13,6 +13,9 @@ export const Header = ({ activeThread, toggleSidebar }) => {
         fontSize: '2.0rem',
         color: '#aaa',
         WebkitFontSmoothing: 'antialiased',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        flex: '1',
       },
       icon: {
         width: '24px',
