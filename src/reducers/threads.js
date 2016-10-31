@@ -24,9 +24,9 @@ export default function threads(state = initialState, action) {
     case SHOW_THREAD:
       return { ...state, activeThreadID: action.id }
     case THREADS_SUCCESS:
-      return { ...state, threads: action.response }
+      return { ...state, threads: action.threads }
     case REMOVE_SUCCESS: {
-      const index = _.findIndex(state.threads, thread => (thread.id === action.response.id))
+      const index = _.findIndex(state.threads, thread => (thread.id === action.thread.id))
 
       return {
         ...state,
@@ -38,13 +38,13 @@ export default function threads(state = initialState, action) {
       }
     }
     case MESSAGES.SEND_SUCCESS: {
-      const index = _.findIndex(state.threads, thread => (thread.id === action.response.thread_id))
+      const index = _.findIndex(state.threads, thread => (thread.id === action.message.thread_id))
       return {
         ...state,
         threads: [
           ...state.threads.slice(0, index),
           { ...state.threads[index],
-            message_ids: [...state.threads[index].message_ids, action.response.id] },
+            message_ids: [...state.threads[index].message_ids, action.message.id] },
           ...state.threads.slice(index + 1),
         ],
       }
@@ -58,6 +58,7 @@ export const actions = {
     [NYLAS_API]: {
       endpoint: 'threads?in=inbox',
       types: [THREADS_REQUEST, THREADS_SUCCESS, THREADS_FAILURE],
+      model: 'threads',
     },
   }),
   archiveThread: (threadID, labels) => ({
@@ -65,6 +66,7 @@ export const actions = {
       endpoint: `threads/${ threadID }`,
       method: 'PUT',
       types: [REMOVE_REQUEST, REMOVE_SUCCESS, REMOVE_FAILURE],
+      model: 'thread',
       body: {
         label_ids: _(labels).reject({ name: 'inbox' }).map('id'),
       },
@@ -80,4 +82,8 @@ export const getThreadByID = (state, id) => {
 
 export const getActiveThread = (state) => {
   return _.filter(state.threads.threads, { id: state.threads.activeThreadID })[0]
+}
+
+export const getActiveThreadID = (state) => {
+  return state.threads.activeThreadID
 }

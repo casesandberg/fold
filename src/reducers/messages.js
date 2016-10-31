@@ -15,12 +15,15 @@ export const SEND_FAILURE = 'MESSAGES/SEND_FAILURE'
 const byId = (state = {}, action) => {
   switch (action.type) {
     case MESSAGES_SUCCESS: {
-      const messages = {}
-      _.each(action.response, (message) => { messages[message.id] = message })
+      const messages = _.reduce(action.messages, (all, message) => {
+        all[message.id] = message // eslint-disable-line no-param-reassign
+        return all
+      }, {})
+
       return { ...state, ...messages }
     }
     case SEND_SUCCESS:
-      return { ...state, [action.response.id]: action.response }
+      return { ...state, [action.message.id]: action.message }
     default: return state
   }
 }
@@ -28,22 +31,30 @@ const byId = (state = {}, action) => {
 const allIds = (state = [], action) => {
   switch (action.type) {
     case MESSAGES_SUCCESS:
-      return _.union(state, _.map(action.response, 'id'))
+      return _.union(state, _.map(action.messages, 'id'))
     case SEND_SUCCESS:
-      return [...state, action.response.id]
+      return [...state, action.message.id]
     default: return state
   }
 }
 
+const message = (state = {}, action) => {
+  switch (action.type) {
+    case EDIT_DRAFT: {
+      return { ...state, ...action.message }
+    }
+    default: return state
+  }
+}
 
 const drafts = (state = {}, action) => {
   switch (action.type) {
     case EDIT_DRAFT: {
       const id = action.message.thread_id
-      return { ...state, [id]: { ...state[id], ...action.message } }
+      return { ...state, [id]: message(state[id], action) }
     }
     case SEND_SUCCESS:
-      return [...state, [action.response.thread_id]: {}]
+      return _.omit(state, action.message.thread_id)
     default: return state
   }
 }
@@ -59,6 +70,7 @@ export const actions = {
     [NYLAS_API]: {
       endpoints: _.map(messageIDs, id => (`messages/${ id }`)),
       types: [MESSAGES_REQUEST, MESSAGES_SUCCESS, MESSAGES_FAILURE],
+      model: 'messages',
     },
   }),
 
@@ -67,6 +79,7 @@ export const actions = {
       endpoint: 'send',
       method: 'POST',
       types: [SEND_REQUEST, SEND_SUCCESS, SEND_FAILURE],
+      model: 'message',
       body,
     },
   }),
