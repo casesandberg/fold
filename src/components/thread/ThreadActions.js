@@ -1,7 +1,8 @@
 import React from 'react'
 import reactCSS from 'reactcss'
+import _ from 'lodash'
 
-import { Box, Input, Path, Svg, Text } from '../common'
+import { Box, Clickable, Input, Path, Svg, Text } from '../common'
 
 export const ThreadActions = ({ archiveThread, activeThread, editDraft, draft, reply }) => {
   const styles = reactCSS({
@@ -57,7 +58,7 @@ export const ThreadActions = ({ archiveThread, activeThread, editDraft, draft, r
 
   const handleArchive = () => activeThread && archiveThread(activeThread.id, activeThread.labels)
   const handleChange = e => editDraft({
-    'body': e.target.value,
+    'body': _.isString(e) ? e : e.target && e.target.value,
     'reply_to_message_id': activeThread.message_ids[activeThread.message_ids.length - 1],
     'thread_id': activeThread.id,
     'to': [
@@ -89,7 +90,9 @@ export const ThreadActions = ({ archiveThread, activeThread, editDraft, draft, r
 
       <Box style={ styles.buttons }>
         { draft && draft.body && draft.body.trim() !== '' ? (
-          <Text onClick={ handleSend }>SEND</Text>
+          <Clickable onClick={ handleSend }>
+            <Text>SEND</Text>
+          </Clickable>
         ) : null }
         <Box style={ styles.button } onClick={ handleArchive }>
           <Svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
