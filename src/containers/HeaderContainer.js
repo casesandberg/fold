@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
-import { getActiveThread } from '../reducers/threads'
+import { selectors } from '../reducers'
 import { actions } from '../reducers/app'
 
 import Header from '../components/Header'
 
 const mapStateToProps = state => ({
-  activeThread: getActiveThread(state),
+  activeThread: selectors.getActiveThread(state),
 })
 
 const HeaderContainer = connect(

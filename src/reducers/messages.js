@@ -90,7 +90,9 @@ export const actions = {
 const getAllMessages = state =>
   state.allIds.map(id => state.byId[id])
 
-export const getMessagesByThreadID = (state, id) => {
-  const allMessages = getAllMessages(state.messages)
-  return _.filter(allMessages, { thread_id: id })
+export const selectors = {
+  getMessagesByThreadID: (state, id) => {
+    const allMessages = getAllMessages(state)
+    return _.filter(allMessages, { thread_id: id })
+  },
 }

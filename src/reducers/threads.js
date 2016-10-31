@@ -69,6 +69,7 @@ export const actions = {
       model: 'threads',
     },
   }),
+
   archiveThread: (threadID, labels) => ({
     [NYLAS_API]: {
       endpoint: `threads/${ threadID }`,
@@ -84,14 +85,16 @@ export const actions = {
   showThread: id => ({ type: SHOW_THREAD, id }),
 }
 
-export const getThreadByID = (state, id) => {
-  return _.filter(state.threads.threads, { id })[0]
-}
+export const selectors = {
+  getThreadByID: (state, id) => {
+    return _.find(state.threads, { id })
+  },
 
-export const getActiveThread = (state) => {
-  return _.filter(state.threads.threads, { id: state.threads.activeThreadID })[0]
-}
+  getActiveThread: (state) => {
+    return _.find(state.threads, { id: state.activeThreadID })
+  },
 
-export const getActiveThreadID = (state) => {
-  return state.threads.activeThreadID
+  getActiveThreadID: (state) => {
+    return state.activeThreadID
+  },
 }
