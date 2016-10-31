@@ -48,6 +48,7 @@ function resizeImages(doc) {
 }
 
 export const formatEmail = (string) => { // eslint-disable-line
+  if (typeof DOMParser === 'undefined') { return string } // Abort for RN
   const doc = parseHTMLString(string)
 
   chopQuotedText(doc)
