@@ -3,7 +3,7 @@ import reactCSS from 'reactcss'
 
 import { Platform } from 'react-native'
 
-import { Box, Text } from './common'
+import { Box } from './common'
 import Messages from './messages/Messages'
 import ThreadActions from './thread/ThreadActions'
 import SidebarContainer from '../containers/SidebarContainer'
@@ -21,7 +21,6 @@ export class Triage extends React.Component {
       'default': {
         wrap: {
           backgroundColor: '#fafafa',
-          flexDirection: 'column',
           paddingTop: Platform.OS === 'web' ? 0 : 22,
           position: 'absolute',
           top: 0,
@@ -29,6 +28,7 @@ export class Triage extends React.Component {
           left: 0,
           right: 0,
           alignItems: 'stretch',
+          justifyContent: 'center',
         },
         triage: {
           maxWidth: 630,
@@ -44,8 +44,10 @@ export class Triage extends React.Component {
         messages: {
           flex: 1,
           overflow: 'scroll',
-          // padding: '0 10px',
-          // margin: '0 -10px',
+          paddingRight: 10,
+          paddingLeft: 10,
+          marginRight: -10,
+          marginLeft: -10,
         },
         messagesList: {
           paddingBottom: 100,
@@ -111,21 +113,11 @@ export class Triage extends React.Component {
             <HeaderContainer />
             { activeThread ? (
               <Box style={ styles.messagesList }>
-                <Text>Foo Bar</Text>
-                <Text>Foo Bar</Text>
-                <Text>Foo Bar</Text>
-                <Text>Foo Bar</Text>
-                <Text>Foo Bar</Text>
-                <Text>Foo Bar</Text>
-                <Text>Foo Bar</Text>
-                <Text>Foo Bar</Text>
-                { /*
-                  <Messages
-                    getMessages={ getMessages }
-                    activeThread={ activeThread }
-                    activeMessages={ activeMessages }
-                  />
-                  */ }
+                <Messages
+                  getMessages={ getMessages }
+                  activeThread={ activeThread }
+                  activeMessages={ activeMessages }
+                />
               </Box>
             ) : null }
           </Box>

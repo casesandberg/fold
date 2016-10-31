@@ -2,6 +2,7 @@ import React from 'react'
 import reactCSS from 'reactcss'
 import { formatEmail } from '../../helpers/email'
 
+import { Box } from '../common'
 import FullFrame from '../common/FullFrame'
 import MessageItemSnippet from './MessageItemSnippet'
 
@@ -24,15 +25,24 @@ export class MessageItem extends React.Component {
       'default': {
         message: {
           background: '#fff',
+
           boxShadow: '0 2px 5px rgba(0,0,0,.1), 0 0 2px rgba(0,0,0,.1)',
-          marginBottom: '1px',
-          borderRadius: '2px',
+
+          shadowOffset: {
+            height: 2,
+          },
+          shadowRadius: 3,
+          shadowColor: 'black',
+          shadowOpacity: 0.2,
+
+          marginBottom: 1,
+          borderRadius: 2,
         },
       },
     })
 
     return (
-      <div style={ styles.message }>
+      <Box style={ styles.message }>
         { this.state.isExpanded ? (
           <FullFrame
             style={{ border: 'none', width: '100%', height: '1px' }}
@@ -46,7 +56,7 @@ export class MessageItem extends React.Component {
             onClick={ this.handleExpand }
           />
         ) }
-      </div>
+      </Box>
     )
   }
 }

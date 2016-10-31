@@ -3,7 +3,7 @@ import reactCSS from 'reactcss'
 
 import SidebarItemHead from './SidebarItemHead'
 
-export const SidebarItem = ({ id, active, unread, participants, subject,
+export const SidebarItem = ({ id, active, unread, last_message_timestamp, participants, subject,
   message_ids, snippet, onSelect }) => {
   const styles = reactCSS({
     'default': {
@@ -46,7 +46,7 @@ export const SidebarItem = ({ id, active, unread, participants, subject,
 
   return (
     <div style={ styles.item } onClick={ handleClick }>
-      <SidebarItemHead participants={ participants } unread={ unread } />
+      <SidebarItemHead participants={ participants } unread={ unread } timestamp={ last_message_timestamp } />
       <div style={ styles.subject }>
         { subject } { message_ids.length > 1 ? `(${ message_ids.length })` : null }
       </div>

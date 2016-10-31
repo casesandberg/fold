@@ -1,8 +1,9 @@
 import React from 'react'
 import reactCSS from 'reactcss'
 import _ from 'lodash'
+import moment from 'moment-twitter'
 
-export const SidebarItemHead = ({ unread, participants }) => {
+export const SidebarItemHead = ({ unread, participants, timestamp }) => {
   const styles = reactCSS({
     'default': {
       head: {
@@ -32,7 +33,7 @@ export const SidebarItemHead = ({ unread, participants }) => {
           return <span key={ i }>{ person.name } </span>
         }) }
       </div>
-      <div style={ styles.time }>3:30pm</div>
+      <div style={ styles.time }>{ moment.unix(timestamp).twitter() }</div>
     </div>
   )
 }
