@@ -1,5 +1,5 @@
 export default {}
 
 export const Platform = {
-  OS: 'web',
+  OS: 'web', // should be platform
 }

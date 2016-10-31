@@ -1,39 +1,55 @@
 import React from 'react'
 import reactCSS from 'reactcss'
 
+import { Box, Input, Path, Svg, Text } from '../common'
+
 export const ThreadActions = ({ archiveThread, activeThread, editDraft, draft, reply }) => {
   const styles = reactCSS({
     'default': {
       actions: {
         background: '#fff',
+
         boxShadow: '0 2px 5px rgba(0,0,0,.1), 0 0 2px rgba(0,0,0,.1), 0px -20px 10px #fafafa',
-        borderRadius: '2px',
-        height: '54px',
-        marginBottom: '20px',
-        marginTop: '10px',
+
+        shadowOffset: {
+          height: 2,
+        },
+        shadowRadius: 3,
+        shadowColor: 'black',
+        shadowOpacity: 0.2,
+
+        borderRadius: 2,
+        height: 54,
+        marginBottom: 20,
+        marginTop: 10,
         display: 'flex',
+        flexDirection: 'row',
         justifyContent: 'space-between',
       },
       replyWrap: {
-        flex: '1',
-        marginRight: '20px',
+        flex: 1,
+        marginRight: 20,
       },
       reply: {
-        fontSize: '1.6rem',
-        padding: '17px',
+        fontSize: 16,
+        padding: 17,
         border: 'none',
-        width: '100%',
         boxSizing: 'border-box',
-        height: '54px',
+        height: 54,
         outline: 'none',
         resize: 'none',
       },
       buttons: {
         display: 'flex',
-        padding: '0 5px',
+        flexDirection: 'row',
+        paddingRight: 5,
+        paddingLeft: 5,
       },
       button: {
-        padding: '15px 10px',
+        paddingTop: 15,
+        paddingBottom: 15,
+        paddingRight: 10,
+        paddingLeft: 10,
         cursor: 'pointer',
       },
     },
@@ -61,33 +77,33 @@ export const ThreadActions = ({ archiveThread, activeThread, editDraft, draft, r
   const handleSend = () => reply(draft)
 
   return (
-    <div style={ styles.actions }>
-      <div style={ styles.replyWrap }>
-        <textarea
+    <Box style={ styles.actions }>
+      <Box style={ styles.replyWrap }>
+        <Input
           value={ draft.body }
           onChange={ handleChange }
           placeholder="Reply"
           style={ styles.reply }
         />
-      </div>
+      </Box>
 
-      <div style={ styles.buttons }>
+      <Box style={ styles.buttons }>
         { draft && draft.body && draft.body.trim() !== '' ? (
-          <div onClick={ handleSend }>SEND</div>
+          <Text onClick={ handleSend }>SEND</Text>
         ) : null }
-        <div style={ styles.button } onClick={ handleArchive }>
-          <svg style={{ width: '24px', height: '24px' }} viewBox="0 0 24 24">
-            <path fill="#aaa" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" />
-          </svg>
-        </div>
+        <Box style={ styles.button } onClick={ handleArchive }>
+          <Svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
+            <Path fill="#aaa" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" />
+          </Svg>
+        </Box>
 
-        <div style={ styles.button } onClick={ handleArchive }>
-          <svg style={{ width: '24px', height: '24px' }} viewBox="0 0 24 24">
-            <path fill="#aaa" d="M17,12L12,17V14H8V10H12V7L17,12M2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12M4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12Z" />
-          </svg>
-        </div>
-      </div>
-    </div>
+        <Box style={ styles.button } onClick={ handleArchive }>
+          <Svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
+            <Path fill="#aaa" d="M17,12L12,17V14H8V10H12V7L17,12M2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12M4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12Z" />
+          </Svg>
+        </Box>
+      </Box>
+    </Box>
   )
 }
 

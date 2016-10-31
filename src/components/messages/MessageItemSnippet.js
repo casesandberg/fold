@@ -22,7 +22,7 @@ export const MessageItemSnippet = ({ from, snippet, timestamp, onClick }) => {
       },
       name: {
         fontWeight: 'bold',
-        WebkitFontSmoothing: 'antialiased',
+        // WebkitFontSmoothing: 'antialiased',
       },
       time: {
         color: '#aaa',
