@@ -84,7 +84,7 @@ export const actions = {
     },
   }),
 
-  editDraft: message => ({ type: EDIT_DRAFT, message }),
+  editDraft: message => ({ type: EDIT_DRAFT, message }), // eslint-disable-line no-shadow
 }
 
 const getAllMessages = state =>

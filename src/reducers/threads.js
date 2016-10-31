@@ -19,6 +19,15 @@ export const initialState = {
   threads: [],
 }
 
+export function thread(state = {}, action) {
+  switch (action.type) {
+    case MESSAGES.SEND_SUCCESS: {
+      return { ...state, message_ids: [...state.message_ids, action.message.id] }
+    }
+    default: return state
+  }
+}
+
 export default function threads(state = initialState, action) {
   switch (action.type) {
     case SHOW_THREAD:
@@ -26,7 +35,7 @@ export default function threads(state = initialState, action) {
     case THREADS_SUCCESS:
       return { ...state, threads: action.threads }
     case REMOVE_SUCCESS: {
-      const index = _.findIndex(state.threads, thread => (thread.id === action.thread.id))
+      const index = _.findIndex(state.threads, thread => (thread.id === action.thread.id)) // eslint-disable-line no-shadow, max-len
 
       return {
         ...state,
@@ -38,13 +47,12 @@ export default function threads(state = initialState, action) {
       }
     }
     case MESSAGES.SEND_SUCCESS: {
-      const index = _.findIndex(state.threads, thread => (thread.id === action.message.thread_id))
+      const index = _.findIndex(state.threads, thread => (thread.id === action.message.thread_id)) // eslint-disable-line no-shadow, max-len
       return {
         ...state,
         threads: [
           ...state.threads.slice(0, index),
-          { ...state.threads[index],
-            message_ids: [...state.threads[index].message_ids, action.message.id] },
+          thread(state.threads[index], action),
           ...state.threads.slice(index + 1),
         ],
       }
