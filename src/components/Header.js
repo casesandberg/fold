@@ -1,7 +1,7 @@
 import React from 'react'
 import reactCSS from 'reactcss'
 
-import { Box, Clickable, Path, Svg, Text } from './common'
+import { Box, Clickable, Icon, Text } from './common'
 
 export const Header = ({ activeThread, toggleSidebar }) => {
   const styles = reactCSS({
@@ -23,10 +23,6 @@ export const Header = ({ activeThread, toggleSidebar }) => {
       iconWrap: {
         paddingRight: 17,
       },
-      icon: {
-        width: 24,
-        height: 24,
-      },
     },
   })
 
@@ -34,9 +30,7 @@ export const Header = ({ activeThread, toggleSidebar }) => {
     <Box style={ styles.header }>
       <Box style={ styles.iconWrap }>
         <Clickable onClick={ toggleSidebar }>
-          <Svg style={ styles.icon } viewBox="0 0 24 24">
-            <Path fill="#aaa" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
-          </Svg>
+          <Icon name="menu" />
         </Clickable>
       </Box>
       <Text style={ styles.title }>{ activeThread && activeThread.subject }</Text>

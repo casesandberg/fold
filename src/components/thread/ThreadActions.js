@@ -2,7 +2,7 @@ import React from 'react'
 import reactCSS from 'reactcss'
 import _ from 'lodash'
 
-import { Box, Clickable, Input, Path, Svg, Text } from '../common'
+import { Box, Clickable, Icon, Input, Text } from '../common'
 
 export const ThreadActions = ({ archiveThread, activeThread, editDraft, draft, reply }) => {
   const styles = reactCSS({
@@ -95,15 +95,11 @@ export const ThreadActions = ({ archiveThread, activeThread, editDraft, draft, r
           </Clickable>
         ) : null }
         <Box style={ styles.button } onClick={ handleArchive }>
-          <Svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
-            <Path fill="#aaa" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" />
-          </Svg>
+          <Icon name="clock" />
         </Box>
 
         <Box style={ styles.button } onClick={ handleArchive }>
-          <Svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
-            <Path fill="#aaa" d="M17,12L12,17V14H8V10H12V7L17,12M2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12M4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12Z" />
-          </Svg>
+          <Icon name="folder-outline" />
         </Box>
       </Box>
     </Box>

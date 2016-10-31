@@ -1,5 +1,7 @@
 export { default as Box } from './Box'
 export { default as Clickable } from './Clickable'
+export { default as Icon } from './Icon'
+export { default as Iframe } from './Iframe'
 export { default as Input } from './Input'
 export { default as Path } from './Path'
 export { default as Svg } from './Svg'
