@@ -3,17 +3,21 @@ import reactCSS from 'reactcss'
 import _ from 'lodash'
 import moment from 'moment-twitter'
 
+import { Box, Text } from '../common'
+
 export const SidebarItemHead = ({ unread, participants, timestamp }) => {
   const styles = reactCSS({
     'default': {
       head: {
         display: 'flex',
+        flexDirection: 'row',
         justifyContent: 'space-between',
       },
       people: {
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
+        flexDirection: 'row',
       },
       time: {
         color: '#999',
@@ -27,14 +31,14 @@ export const SidebarItemHead = ({ unread, participants, timestamp }) => {
   }, { unread })
 
   return (
-    <div style={ styles.head }>
-      <div style={ styles.people }>
+    <Box style={ styles.head }>
+      <Box style={ styles.people }>
         { _.map(participants, (person, i) => {
-          return <span key={ i }>{ person.name } </span>
+          return <Text key={ i }>{ person.name } </Text>
         }) }
-      </div>
-      <div style={ styles.time }>{ moment.unix(timestamp).twitter() }</div>
-    </div>
+      </Box>
+      <Text style={ styles.time }>{ moment.unix(timestamp).twitter() }</Text>
+    </Box>
   )
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import reactCSS from 'reactcss'
 
+import { Box, Clickable, Text } from '../common'
 import SidebarItemHead from './SidebarItemHead'
 
 export const SidebarItem = ({ id, active, unread, last_message_timestamp, participants, subject,
@@ -8,20 +9,19 @@ export const SidebarItem = ({ id, active, unread, last_message_timestamp, partic
   const styles = reactCSS({
     'default': {
       item: {
-        marginBottom: '1px',
+        marginBottom: 1,
         cursor: 'pointer',
-        fontSize: '15px',
-        padding: '15px',
+        fontSize: 15,
+        padding: 15,
       },
       subject: {
-        width: '100%',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
-        fontWeight: 'bold',
+        fontWeight: 600,
+        flexDirection: 'row',
       },
       snippet: {
-        width: '100%',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
@@ -30,30 +30,36 @@ export const SidebarItem = ({ id, active, unread, last_message_timestamp, partic
     },
     'active': {
       item: {
-        background: '#E7EFFA',
+        backgroundColor: '#E7EFFA',
         boxShadow: 'inset -3px 0 #2196F3',
       },
     },
     'read': {
       item: {
-        background: '#f6f6f6',
+        backgroundColor: '#f6f6f6',
         color: '#666',
-        fontWeight: 'normal',
+        fontWeight: 400,
       },
     },
   }, { read: !unread, active })
   const handleClick = () => onSelect(id)
 
   return (
-    <div style={ styles.item } onClick={ handleClick }>
-      <SidebarItemHead participants={ participants } unread={ unread } timestamp={ last_message_timestamp } />
-      <div style={ styles.subject }>
-        { subject } { message_ids.length > 1 ? `(${ message_ids.length })` : null }
-      </div>
-      <div style={ styles.snippet }>
-        { snippet }
-      </div>
-    </div>
+    <Clickable onClick={ handleClick }>
+      <Box style={ styles.item }>
+        <SidebarItemHead
+          participants={ participants }
+          unread={ unread }
+          timestamp={ last_message_timestamp }
+        />
+        <Box style={ styles.subject }>
+          <Text numberOfLines={ 1 }>{ subject } { message_ids.length > 1 ? `(${ message_ids.length })` : null }</Text>
+        </Box>
+        <Box style={ styles.snippet }>
+          <Text numberOfLines={ 1 }>{ snippet }</Text>
+        </Box>
+      </Box>
+    </Clickable>
   )
 }
 

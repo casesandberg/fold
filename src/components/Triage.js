@@ -20,6 +20,7 @@ export class Triage extends React.Component {
     const styles = reactCSS({
       'default': {
         wrap: {
+          display: 'flex',
           backgroundColor: '#fafafa',
           paddingTop: Platform.OS === 'web' ? 0 : 22,
           position: 'absolute',
@@ -28,10 +29,12 @@ export class Triage extends React.Component {
           left: 0,
           right: 0,
           alignItems: 'stretch',
+          flexDirection: 'row',
           justifyContent: 'center',
         },
         triage: {
           maxWidth: 630,
+          minWidth: 300,
           flex: 1,
           paddingRight: 10,
           paddingLeft: 10,
@@ -62,43 +65,7 @@ export class Triage extends React.Component {
           zIndex: 2,
         },
       },
-      'web': {
-        wrap: {
-          display: 'flex',
-        },
-      },
-    }, { web: Platform.OS === 'web' })
-
-    // { isSidebarVisible ? (
-    //   <Box style={ styles.sidebar }>
-    //     <SidebarContainer />
-    //   </Box>
-    // ) : null }
-    //
-    // <Box style={ styles.triage }>
-    //   <Box style={ styles.messages }>
-    //     <HeaderContainer />
-    //     { activeThread ? (
-    //       <Box style={ styles.messagesList }>
-    //         <Messages
-    //           getMessages={ getMessages }
-    //           activeThread={ activeThread }
-    //           activeMessages={ activeMessages }
-    //         />
-    //       </Box>
-    //     ) : null }
-    //   </Box>
-    //
-    //   <Box style={ styles.actions }>
-    //     <ThreadActions
-    //       activeThread={ activeThread }
-    //       archiveThread={ archiveThread }
-    //       editDraft={ editDraft }
-    //       draft={ activeDraft }
-    //       reply={ reply }
-    //     />
-    //   </Box>
-    // </Box>
+    })
 
     return (
       <Box style={ styles.wrap }>
