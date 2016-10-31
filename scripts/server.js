@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8517
 
 const middleware = webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
-  quiet: true,
+  // quiet: true,
 })
 
 app.use(middleware)

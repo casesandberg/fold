@@ -30,6 +30,9 @@ module.exports = validate({
   },
 
   resolve: {
+    alias: {
+      'react-native': path.resolve(__dirname, './fake.react-native.js')
+    },
     extensions: ['', '.js'],
   },
 })

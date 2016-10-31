@@ -3,7 +3,7 @@ import * as NYLAS from 'redux-nylas-middleware'
 export const TOGGLE_SIDEBAR = 'APP/TOGGLE_SIDEBAR'
 
 export const initialState = {
-  accessToken: '',
+  accessToken: '6FEAhYiBnKaF7aeMCZDfqHj8HEnXOe',
   isSidebarVisible: false,
 }
 

@@ -1,7 +1,7 @@
 import _ from 'lodash'
 
 export const getFromURI = (param) => {
-  if (!location.search) { return undefined }
+  if (typeof location === 'undefined' || !location.search) { return undefined }
   const params = {}
   const parts = location.search.substring(1).split('&')
 

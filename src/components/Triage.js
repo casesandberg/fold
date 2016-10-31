@@ -1,6 +1,7 @@
 import React from 'react'
 import reactCSS from 'reactcss'
 
+import { Box } from './common'
 import Messages from './messages/Messages'
 import ThreadActions from './thread/ThreadActions'
 import SidebarContainer from '../containers/SidebarContainer'
@@ -8,7 +9,7 @@ import HeaderContainer from '../containers/HeaderContainer'
 
 export class Triage extends React.Component {
   componentDidMount() {
-    this.props.getThreads()
+    // this.props.getThreads()
   }
   render() {
     const { activeThread, activeMessages, archiveThread, getMessages,
@@ -18,7 +19,11 @@ export class Triage extends React.Component {
       'default': {
         wrap: {
           display: 'flex',
-          absolute: '0 0 0 0',
+          // position: 'absolute',
+          // top: '0px',
+          // bottom: '0px',
+          // left: '0px',
+          // right: '0px',
           alignItems: 'stretch',
           justifyContent: 'center',
         },
@@ -52,40 +57,39 @@ export class Triage extends React.Component {
       },
     })
 
+    // { isSidebarVisible ? (
+    //   <Box style={ styles.sidebar }>
+    //     <SidebarContainer />
+    //   </Box>
+    // ) : null }
+    //
+    // <Box style={ styles.triage }>
+    //   <Box style={ styles.messages }>
+    //     <HeaderContainer />
+    //     { activeThread ? (
+    //       <Box style={ styles.messagesList }>
+    //         <Messages
+    //           getMessages={ getMessages }
+    //           activeThread={ activeThread }
+    //           activeMessages={ activeMessages }
+    //         />
+    //       </Box>
+    //     ) : null }
+    //   </Box>
+    //
+    //   <Box style={ styles.actions }>
+    //     <ThreadActions
+    //       activeThread={ activeThread }
+    //       archiveThread={ archiveThread }
+    //       editDraft={ editDraft }
+    //       draft={ activeDraft }
+    //       reply={ reply }
+    //     />
+    //   </Box>
+    // </Box>
+
     return (
-      <div style={ styles.wrap }>
-
-        { isSidebarVisible ? (
-          <div style={ styles.sidebar }>
-            <SidebarContainer />
-          </div>
-        ) : null }
-
-        <div style={ styles.triage }>
-          <div style={ styles.messages }>
-            <HeaderContainer />
-            { activeThread ? (
-              <div style={ styles.messagesList }>
-                <Messages
-                  getMessages={ getMessages }
-                  activeThread={ activeThread }
-                  activeMessages={ activeMessages }
-                />
-              </div>
-            ) : null }
-          </div>
-
-          <div style={ styles.actions }>
-            <ThreadActions
-              activeThread={ activeThread }
-              archiveThread={ archiveThread }
-              editDraft={ editDraft }
-              draft={ activeDraft }
-              reply={ reply }
-            />
-          </div>
-        </div>
-      </div>
+      <Box style={ styles.wrap } />
     )
   }
 }
