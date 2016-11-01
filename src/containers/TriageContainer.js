@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
   messages: selectors.getMessagesByThreadID(state, selectors.getActiveThreadID(state)),
   draft: state.messages.drafts[selectors.getActiveThreadID(state)] || {},
   isSidebarVisible: state.app.isSidebarVisible,
+  activeEmailDisplay: state.messages.ui.activeEmailDisplay,
 })
 
 const TriageContainer = connect(

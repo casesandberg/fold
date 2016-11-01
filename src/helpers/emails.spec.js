@@ -1,3 +1,4 @@
+/* global describe, test, expect, jest, beforeEach */
 
 [
   {
@@ -26,3 +27,7 @@
     after: '<div><div><div><div><div><div>Thanks!</div></div></div></div></div></div>',
   },
 ]
+
+test('FAIL: Your test suite must contain at least one test', () => {
+  expect(true).toEqual(true)
+})

@@ -1,8 +1,11 @@
 import _ from 'lodash'
 import { combineReducers } from 'redux'
 import { NYLAS_API } from 'redux-nylas-middleware'
+import { displayVisibility } from '../helpers/messages'
 
 export const EDIT_DRAFT = 'MESSAGES/EDIT_DRAFT'
+export const UNCOLLAPSE_ALL = 'MESSAGES/UNCOLLAPSE_ALL'
+export const OPEN_MESSAGE = 'MESSAGES/OPEN_MESSAGE'
 
 export const MESSAGES_REQUEST = 'MESSAGES/MESSAGES_REQUEST'
 export const MESSAGES_SUCCESS = 'MESSAGES/MESSAGES_SUCCESS'
@@ -59,10 +62,32 @@ const drafts = (state = {}, action) => {
   }
 }
 
+const initialUIState = {
+  activeEmailDisplay: {},
+}
+
+const ui = (state = initialUIState, action) => {
+  switch (action.type) {
+    case MESSAGES_SUCCESS:
+      return { ...state, activeEmailDisplay: displayVisibility(action.messages) }
+    case UNCOLLAPSE_ALL: {
+      const display = _.reduce(state.activeEmailDisplay, (obj, dis, id) => {
+        obj[id] = dis === 'open' ? 'open' : 'closed' // eslint-disable-line no-param-reassign
+        return obj
+      }, {})
+      return { ...state, activeEmailDisplay: display }
+    }
+    case OPEN_MESSAGE:
+      return { ...state, activeEmailDisplay: { ...state.activeEmailDisplay, [action.id]: 'open' } }
+    default: return state
+  }
+}
+
 export default combineReducers({
   byId,
   allIds,
   drafts,
+  ui,
 })
 
 export const actions = {
@@ -85,6 +110,8 @@ export const actions = {
   }),
 
   editDraft: message => ({ type: EDIT_DRAFT, message }), // eslint-disable-line no-shadow
+  uncollapseAll: () => ({ type: UNCOLLAPSE_ALL }),
+  openMessage: id => ({ type: OPEN_MESSAGE, id }),
 }
 
 const getAllMessages = state =>

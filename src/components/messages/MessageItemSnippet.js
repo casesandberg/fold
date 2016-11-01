@@ -35,7 +35,7 @@ export const MessageItemSnippet = ({ from, snippet, timestamp, onClick }) => {
   })
 
   return (
-    <Clickable onClick={ onClick }>
+    <Clickable onClick={ onClick } style={{ flex: 1 }}>
       <Box style={ styles.wrap }>
         <Box style={ styles.snippet }>
           <Text>

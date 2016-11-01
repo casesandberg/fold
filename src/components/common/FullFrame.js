@@ -10,7 +10,7 @@ const additionalCSS = `
 
 export class FullFrame extends React.Component {
   state = {
-    height: 1,
+    height: 54,
   }
   mount = (e) => {
     const iframe = e.target

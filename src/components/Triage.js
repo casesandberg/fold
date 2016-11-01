@@ -15,7 +15,8 @@ export class Triage extends React.Component {
   }
   render() {
     const { thread, messages, archiveThread, getMessages,
-      isSidebarVisible, editDraft, draft, reply } = this.props
+      isSidebarVisible, editDraft, draft, reply, activeEmailDisplay,
+      uncollapseAll, openMessage } = this.props
 
     const styles = reactCSS({
       'default': {
@@ -84,6 +85,9 @@ export class Triage extends React.Component {
                   getMessages={ getMessages }
                   thread={ thread }
                   messages={ messages }
+                  activeEmailDisplay={ activeEmailDisplay }
+                  uncollapseAll={ uncollapseAll }
+                  openMessage={ openMessage }
                 />
               </Box>
             ) : null }

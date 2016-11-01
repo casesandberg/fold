@@ -15,26 +15,26 @@ export class Messages extends React.Component {
     }
   }
   render() {
-    const { messages } = this.props
-    const length = messages.length
-    const squashedMessages = messages.slice(1, length - 2)
+    const { messages, activeEmailDisplay, uncollapseAll, openMessage } = this.props
+    const squashedId = _.findKey(activeEmailDisplay, m => m === 'collapsed')
+
     return (
       <Box>
-        { length > 4 ? (
-          <Box>
-            <MessageItem key={ messages[0].id } { ...messages[0] } />
-            <SquashedMessages messages={ squashedMessages } />
-            <MessageItem key={ messages[length - 2].id } { ...messages[length - 2] } />
-            <MessageItem key={ messages[length - 1].id } { ...messages[length - 1] } />
-          </Box>
-        ) : (
-          _.map(messages, (message, i) => {
-            const last = i + 1 === messages.length
-            return (
-              <MessageItem key={ message.id } { ...message } last={ last } />
-            )
-          })
-        ) }
+        { _.map(messages, (message) => {
+          return (
+            <Box>
+              { message.id === squashedId ? (
+                <SquashedMessages onExpand={ uncollapseAll } />
+              ) : null }
+              <MessageItem
+                openMessage={ openMessage }
+                key={ message.id }
+                { ...message }
+                visibility={ activeEmailDisplay[message.id] }
+              />
+            </Box>
+          )
+        }) }
       </Box>
     )
   }
