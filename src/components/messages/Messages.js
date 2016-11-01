@@ -17,6 +17,7 @@ export class Messages extends React.Component {
   render() {
     const { messages, activeEmailDisplay, uncollapseAll, openMessage } = this.props
     const squashedId = _.findKey(activeEmailDisplay, m => m === 'collapsed')
+    const squashedMEssages = _.find(activeEmailDisplay, m => m === 'collapsed')
 
     return (
       <Box>
@@ -24,7 +25,7 @@ export class Messages extends React.Component {
           return (
             <Box>
               { message.id === squashedId ? (
-                <SquashedMessages onExpand={ uncollapseAll } />
+                <SquashedMessages messages={ squashedMEssages } onExpand={ uncollapseAll } />
               ) : null }
               <MessageItem
                 openMessage={ openMessage }
