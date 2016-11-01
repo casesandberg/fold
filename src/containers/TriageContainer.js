@@ -6,9 +6,9 @@ import { actions as messageActions } from '../reducers/messages'
 import Triage from '../components/Triage'
 
 const mapStateToProps = state => ({
-  activeThread: selectors.getActiveThread(state),
-  activeMessages: selectors.getMessagesByThreadID(state, selectors.getActiveThreadID(state)),
-  activeDraft: state.messages.drafts[selectors.getActiveThreadID(state)] || {},
+  thread: selectors.getActiveThread(state),
+  messages: selectors.getMessagesByThreadID(state, selectors.getActiveThreadID(state)),
+  draft: state.messages.drafts[selectors.getActiveThreadID(state)] || {},
   isSidebarVisible: state.app.isSidebarVisible,
 })
 

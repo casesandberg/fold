@@ -93,6 +93,6 @@ const getAllMessages = state =>
 export const selectors = {
   getMessagesByThreadID: (state, id) => {
     const allMessages = getAllMessages(state)
-    return _.filter(allMessages, { thread_id: id })
+    return _.filter(allMessages, { thread_id: id }) || []
   },
 }

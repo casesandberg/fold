@@ -46,7 +46,7 @@ export class MessageItem extends React.Component {
       <Box style={ styles.message }>
         { this.state.isExpanded ? (
           <FullFrame
-            style={{ border: 'none', flex: 1, height: 150 }}
+            style={{ border: 'none', flex: 1 }}
             body={ formatEmail(body) }
           />
         ) : (

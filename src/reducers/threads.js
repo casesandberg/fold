@@ -87,11 +87,11 @@ export const actions = {
 
 export const selectors = {
   getThreadByID: (state, id) => {
-    return _.find(state.threads, { id })
+    return _.find(state.threads, { id }) || {}
   },
 
   getActiveThread: (state) => {
-    return _.find(state.threads, { id: state.activeThreadID })
+    return _.find(state.threads, { id: state.activeThreadID }) || {}
   },
 
   getActiveThreadID: (state) => {

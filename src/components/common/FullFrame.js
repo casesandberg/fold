@@ -10,12 +10,13 @@ const additionalCSS = `
 
 export class FullFrame extends React.Component {
   state = {
-    height: undefined,
+    height: 1,
   }
   mount = (e) => {
-    const iframe = this.iframe
+    const iframe = e.target
     if (iframe) {
-      iframe.style.height = `${ iframe.contentWindow.document.body.scrollHeight }px`
+      const height = iframe.contentWindow.document.body.scrollHeight
+      this.setState({ height })
     } if (e.title) {
       const height = parseInt(e.title, 10)
       if (height > 0) { this.setState({ height }) }
@@ -24,7 +25,6 @@ export class FullFrame extends React.Component {
   render() {
     return (
       <Iframe
-        ref={ (i) => { this.iframe = i } }
         style={{ ...this.props.style, height: this.state.height }}
         srcDoc={ this.props.body + additionalCSS }
         onLoad={ this.mount }

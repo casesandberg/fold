@@ -14,8 +14,8 @@ export class Triage extends React.Component {
     this.props.getThreads()
   }
   render() {
-    const { activeThread, activeMessages, archiveThread, getMessages,
-      isSidebarVisible, editDraft, activeDraft, reply } = this.props
+    const { thread, messages, archiveThread, getMessages,
+      isSidebarVisible, editDraft, draft, reply } = this.props
 
     const styles = reactCSS({
       'default': {
@@ -78,12 +78,12 @@ export class Triage extends React.Component {
         <Box style={ styles.triage }>
           <Box style={ styles.messages }>
             <HeaderContainer />
-            { activeThread ? (
+            { thread ? (
               <Box style={ styles.messagesList }>
                 <Messages
                   getMessages={ getMessages }
-                  activeThread={ activeThread }
-                  activeMessages={ activeMessages }
+                  thread={ thread }
+                  messages={ messages }
                 />
               </Box>
             ) : null }
@@ -91,10 +91,10 @@ export class Triage extends React.Component {
 
           <Box style={ styles.actions }>
             <ThreadActions
-              activeThread={ activeThread }
+              thread={ thread }
               archiveThread={ archiveThread }
               editDraft={ editDraft }
-              draft={ activeDraft }
+              draft={ draft }
               reply={ reply }
             />
           </Box>

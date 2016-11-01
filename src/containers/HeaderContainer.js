@@ -5,7 +5,7 @@ import { actions } from '../reducers/app'
 import Header from '../components/Header'
 
 const mapStateToProps = state => ({
-  activeThread: selectors.getActiveThread(state),
+  title: selectors.getActiveThread(state).subject,
 })
 
 const HeaderContainer = connect(

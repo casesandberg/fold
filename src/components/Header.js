@@ -3,7 +3,7 @@ import reactCSS from 'reactcss'
 
 import { Box, Clickable, Icon, Text } from './common'
 
-export const Header = ({ activeThread, toggleSidebar }) => {
+export const Header = ({ title, toggleSidebar }) => {
   const styles = reactCSS({
     'default': {
       header: {
@@ -33,7 +33,7 @@ export const Header = ({ activeThread, toggleSidebar }) => {
           <Icon name="menu" />
         </Clickable>
       </Box>
-      <Text style={ styles.title }>{ activeThread && activeThread.subject }</Text>
+      <Text style={ styles.title }>{ title }</Text>
     </Box>
   )
 }
