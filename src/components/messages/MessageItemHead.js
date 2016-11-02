@@ -18,17 +18,18 @@ export const MessageItemHead = ({ from, timestamp }) => {
         display: 'flex',
       },
       avatar: {
-        width: 34,
-        height: 34,
-        backgroundColor: '#def1f3',
-        borderRadius: 2,
+        width: 32,
+        height: 32,
+        border: '2px solid #eee',
+        borderRadius: 4,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: 20,
         fontWeight: 500,
         WebkitFontSmoothing: 'antialiased',
-        color: 'rgba(0,0,100,.3)',
+        color: 'rgba(0,0,0,.13)',
+        textTransform: 'uppercase',
       },
       fromBox: {
         flex: 1,
@@ -52,10 +53,10 @@ export const MessageItemHead = ({ from, timestamp }) => {
     <Box style={ styles.head }>
       <Box style={ styles.left }>
         <Box style={ styles.avatar }>
-          <Text>{ from.name[0] }</Text>
+          <Text>{ from.name[0] || from.email[0] }</Text>
         </Box>
         <Box style={ styles.fromBox }>
-          <Text style={ styles.name }>{ from.name }</Text>
+          <Text style={ styles.name }>{ from.name || from.email }</Text>
           <Text style={ styles.email }>{ from.email }</Text>
         </Box>
       </Box>
