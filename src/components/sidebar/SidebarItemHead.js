@@ -12,15 +12,13 @@ export const SidebarItemHead = ({ unread, participants, timestamp }) => {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        opacity: 0.8,
       },
       people: {
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         flexDirection: 'row',
-      },
-      time: {
-        color: '#999',
       },
     },
     'unread': {

@@ -11,10 +11,12 @@ export const SidebarItem = ({ id, active, unread, last_message_timestamp, partic
   const styles = reactCSS({
     'default': {
       item: {
-        marginBottom: 1,
+        borderBottom: '1px solid #f6f6f6',
+        color: '#444',
         cursor: 'pointer',
         fontSize: 15,
         padding: 15,
+        backgroundColor: '#fff',
       },
       subject: {
         whiteSpace: 'nowrap',
@@ -27,7 +29,7 @@ export const SidebarItem = ({ id, active, unread, last_message_timestamp, partic
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
-        color: '#999',
+        opacity: 0.4,
       },
     },
     'active': {
@@ -39,7 +41,7 @@ export const SidebarItem = ({ id, active, unread, last_message_timestamp, partic
     'read': {
       item: {
         backgroundColor: '#f6f6f6',
-        color: '#666',
+        color: '#aaa',
         fontWeight: 400,
       },
     },
