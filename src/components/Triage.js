@@ -11,7 +11,9 @@ import HeaderContainer from '../containers/HeaderContainer'
 
 export class Triage extends React.Component {
   componentDidMount() {
-    this.props.getThreads()
+    this.props.getThreads().then(({ threads }) => {
+      this.props.showThread(threads[0].id)
+    })
   }
   render() {
     const { thread, messages, archiveThread, getMessages,
@@ -79,7 +81,7 @@ export class Triage extends React.Component {
         <Box style={ styles.triage }>
           <Box style={ styles.messages }>
             <HeaderContainer />
-            { thread ? (
+            { thread.id ? (
               <Box style={ styles.messagesList }>
                 <Messages
                   getMessages={ getMessages }
