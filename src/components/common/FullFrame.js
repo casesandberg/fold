@@ -4,7 +4,7 @@ import Iframe from './Iframe'
 
 const additionalCSS = `
   <style>
-    body { margin: 0; padding: 15px; font-style: 16px; font-family: helvetica; box-sizing: border-box; }
+    body { margin: 0; padding: 15px; font-size: 16px; font-family: helvetica; box-sizing: border-box; }
   </style>
 `
 

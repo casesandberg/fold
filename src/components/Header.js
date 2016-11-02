@@ -29,7 +29,7 @@ export const Header = ({ title, toggleSidebar }) => {
   return (
     <Box style={ styles.header }>
       <Box style={ styles.iconWrap }>
-        <Clickable onClick={ toggleSidebar }>
+        <Clickable onClick={ toggleSidebar } style={{ display: 'flex', alignItems: 'center' }}>
           <Icon name="menu" />
         </Clickable>
       </Box>
