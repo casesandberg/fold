@@ -5,6 +5,7 @@ import { formatEmail } from '../../helpers/email'
 import { Box } from '../common'
 import FullFrame from '../common/FullFrame'
 import MessageItemSnippet from './MessageItemSnippet'
+import MessageItemHead from './MessageItemHead'
 
 export const MessageItem = ({ id, body, from, snippet, date, visibility,
   openMessage }) => {
@@ -38,10 +39,13 @@ export const MessageItem = ({ id, body, from, snippet, date, visibility,
 
   const message = {
     open: (
-      <FullFrame
-        style={{ border: 'none', flex: 1 }}
-        body={ formatEmail(body) }
-      />
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <MessageItemHead from={ from[0] } timestamp={ date } />
+        <FullFrame
+          style={{ border: 'none', flex: 1 }}
+          body={ formatEmail(body) }
+        />
+      </div>
     ),
     closed: (
       <MessageItemSnippet

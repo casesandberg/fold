@@ -25,7 +25,7 @@ export class FullFrame extends React.Component {
   render() {
     return (
       <Iframe
-        style={{ ...this.props.style, height: this.state.height }}
+        style={{ ...this.props.style, height: this.state.height, display: 'block', flex: 1 }}
         srcDoc={ this.props.body + additionalCSS }
         onLoad={ this.mount }
         onNavigationStateChange={ this.mount }
