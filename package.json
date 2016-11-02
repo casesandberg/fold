@@ -46,6 +46,7 @@
     "react-native": "0.36.0",
     "react-native-svg": "^4.3.1",
     "react-redux": "^4.4.5",
+    "react-router": "^4.0.0-alpha.5",
     "reactcss": "^1.0.8",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",

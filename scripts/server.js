@@ -2,6 +2,7 @@
 
 var express = require('express')
 var webpack = require('webpack')
+var path = require('path')
 var webpackDevMiddleware = require('webpack-dev-middleware')
 var webpackHotMiddleware = require('webpack-hot-middleware')
 
@@ -19,7 +20,10 @@ const middleware = webpackDevMiddleware(compiler, {
 app.use(middleware)
 app.use(webpackHotMiddleware(compiler))
 
-app.use('/', express.static('src'))
+app.use(express.static('src'))
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname, '../src', 'index.html'))
+})
 
 
 app.listen(PORT, 'localhost', function (err) {

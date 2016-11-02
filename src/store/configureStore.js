@@ -16,7 +16,8 @@ const enhancer = compose(
   )
 )
 
-export default function configureStore(initialState) {
+const state = { app: { accessToken: localStorage.getItem('access_token') } }
+export default function configureStore(initialState = state) {
   const store = createStore(rootReducer, initialState, enhancer)
 
   if (window.devToolsExtension) {
