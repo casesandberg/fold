@@ -4,20 +4,12 @@ import reactCSS from 'reactcss'
 import { Platform } from 'react-native'
 
 import { Box } from './common'
-import Messages from './messages/Messages'
 import SidebarContainer from '../containers/SidebarContainer'
-import HeaderContainer from '../containers/HeaderContainer'
-import ComposeContainer from '../containers/ComposeContainer'
+import ThreadContainer from '../containers/ThreadContainer'
 
-export class Triage extends React.Component {
-  componentDidMount() {
-    this.props.getThreads().then(({ threads }) => {
-      this.props.showThread(threads[0].id)
-    })
-  }
+export class Triage extends React.Component { // eslint-disable-line
   render() {
-    const { thread, messages, getMessages, isSidebarVisible, activeEmailDisplay,
-      uncollapseAll, openMessage, markThreadAsRead } = this.props
+    const { isSidebarVisible } = this.props
 
     const styles = reactCSS({
       'default': {
@@ -34,37 +26,10 @@ export class Triage extends React.Component {
           flexDirection: 'row',
           justifyContent: 'center',
         },
-        triage: {
-          maxWidth: 630,
-          minWidth: 300,
-          flex: 1,
-          paddingRight: 10,
-          paddingLeft: 10,
-          fontFamily: 'Roboto',
-          fontSize: 16,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-        },
-        messages: {
-          flex: 1,
-          overflow: 'scroll',
-          paddingRight: 10,
-          paddingLeft: 10,
-          marginRight: -10,
-          marginLeft: -10,
-        },
-        messagesList: {
-          paddingBottom: 100,
-        },
         sidebar: {
           width: 300,
           overflow: 'scroll',
           marginRight: 30,
-        },
-        actions: {
-          position: 'relative',
-          zIndex: 2,
         },
       },
     })
@@ -77,28 +42,7 @@ export class Triage extends React.Component {
           </Box>
         ) : null }
 
-        <Box style={ styles.triage }>
-          <Box style={ styles.messages }>
-            <HeaderContainer />
-            { thread.id ? (
-              <Box style={ styles.messagesList }>
-                <Messages
-                  getMessages={ getMessages }
-                  thread={ thread }
-                  messages={ messages }
-                  activeEmailDisplay={ activeEmailDisplay }
-                  uncollapseAll={ uncollapseAll }
-                  openMessage={ openMessage }
-                  markThreadAsRead={ markThreadAsRead }
-                />
-              </Box>
-            ) : null }
-          </Box>
-
-          <Box style={ styles.actions }>
-            <ComposeContainer />
-          </Box>
-        </Box>
+        <ThreadContainer />
       </Box>
     )
   }
