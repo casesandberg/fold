@@ -21,9 +21,10 @@ export const initialState = {
 
 export function thread(state = {}, action) {
   switch (action.type) {
-    case MESSAGES.SEND_SUCCESS: {
+    case MESSAGES.SEND_SUCCESS:
       return { ...state, message_ids: [...state.message_ids, action.message.id] }
-    }
+    case MARK_THREAD_AS_READ:
+      return { ...state, unread: false }
     default: return state
   }
 }
@@ -42,6 +43,17 @@ export default function threads(state = initialState, action) {
         activeThreadID: state.threads[index + 1].id,
         threads: [
           ...state.threads.slice(0, index),
+          ...state.threads.slice(index + 1),
+        ],
+      }
+    }
+    case MARK_THREAD_AS_READ: {
+      const index = _.findIndex(state.threads, thread => (thread.id === action.thread.id)) // eslint-disable-line no-shadow, max-len
+      return {
+        ...state,
+        threads: [
+          ...state.threads.slice(0, index),
+          thread(state.threads[index], action),
           ...state.threads.slice(index + 1),
         ],
       }
