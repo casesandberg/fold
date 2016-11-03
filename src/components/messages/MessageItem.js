@@ -43,7 +43,7 @@ export const MessageItem = ({ id, body, from, snippet, date, visibility,
         <MessageItemHead from={ from[0] } timestamp={ date } />
         <FullFrame
           style={{ border: 'none', flex: 1 }}
-          body={ formatEmail(body) }
+          body={ visibility === 'open' && formatEmail(body) }
         />
       </div>
     ),

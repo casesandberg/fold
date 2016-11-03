@@ -33,6 +33,7 @@ module.exports = {
     'import/no-named-as-default': [IGNORE],
     'import/no-extraneous-dependencies': [IGNORE],
     'react/require-extension': OFF,
-    'no-return-assign': IGNORE
+    'no-return-assign': IGNORE,
+    'import/prefer-default-export': IGNORE,
   },
 }
