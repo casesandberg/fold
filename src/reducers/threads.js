@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { NYLAS_API } from 'redux-nylas-middleware'
+import { combineReducers } from 'redux'
 
 import * as MESSAGES from './messages'
 
@@ -14,10 +15,6 @@ export const GET_INBOX_REQUEST = 'THREADS/GET_INBOX_REQUEST'
 export const GET_INBOX_SUCCESS = 'THREADS/GET_INBOX_SUCCESS'
 export const GET_INBOX_FAILURE = 'THREADS/GET_INBOX_FAILURE'
 
-export const initialState = {
-  activeThreadID: '',
-  threads: [],
-}
 
 export function thread(state = {}, action) {
   switch (action.type) {
@@ -29,49 +26,62 @@ export function thread(state = {}, action) {
   }
 }
 
-export default function threads(state = initialState, action) {
+const byId = (state = {}, action) => {
   switch (action.type) {
-    case SHOW_THREAD:
-      return { ...state, activeThreadID: action.id }
-    case GET_INBOX_SUCCESS:
-      return { ...state, threads: action.threads }
-    case ARCHIVE_SUCCESS: {
-      const index = _.findIndex(state.threads, thread => (thread.id === action.thread.id)) // eslint-disable-line no-shadow, max-len
+    case GET_INBOX_SUCCESS: {
+      const threads = _.reduce(action.threads, (all, message) => {
+        all[message.id] = message // eslint-disable-line no-param-reassign
+        return all
+      }, {})
 
-      return {
-        ...state,
-        activeThreadID: state.threads[index + 1].id,
-        threads: [
-          ...state.threads.slice(0, index),
-          ...state.threads.slice(index + 1),
-        ],
-      }
+      return { ...state, ...threads }
     }
-    case MARK_THREAD_AS_READ: {
-      const index = _.findIndex(state.threads, thread => (thread.id === action.thread.id)) // eslint-disable-line no-shadow, max-len
+    case ARCHIVE_SUCCESS:
+      return _.omit(state, action.thread.id)
+    case MARK_THREAD_AS_READ:
       return {
         ...state,
-        threads: [
-          ...state.threads.slice(0, index),
-          thread(state.threads[index], action),
-          ...state.threads.slice(index + 1),
-        ],
+        [action.thread.id]: thread(state[action.thread.id], action),
       }
-    }
-    case MESSAGES.SEND_SUCCESS: {
-      const index = _.findIndex(state.threads, thread => (thread.id === action.message.thread_id)) // eslint-disable-line no-shadow, max-len
+    case MESSAGES.SEND_SUCCESS:
       return {
         ...state,
-        threads: [
-          ...state.threads.slice(0, index),
-          thread(state.threads[index], action),
-          ...state.threads.slice(index + 1),
-        ],
+        [action.message.thread_id]: thread(state[action.message.thread_id], action),
       }
+    default: return state
+  }
+}
+
+const allIds = (state = [], action) => {
+  switch (action.type) {
+    case GET_INBOX_SUCCESS:
+      return _.union(state, _.map(action.threads, 'id'))
+    case ARCHIVE_SUCCESS: {
+      return _.without(state, action.thread.id)
     }
     default: return state
   }
 }
+
+const initialUIState = {
+  activeThreadID: '',
+}
+
+const ui = (state = initialUIState, action) => {
+  switch (action.type) {
+    case SHOW_THREAD:
+      return { ...state, activeThreadID: action.id }
+    case ARCHIVE_SUCCESS:
+      return { ...state, activeThreadID: action.nextThreadID }
+    default: return state
+  }
+}
+
+export default combineReducers({
+  byId,
+  allIds,
+  ui,
+})
 
 export const actions = {
   getThreads: () => ({
@@ -82,12 +92,15 @@ export const actions = {
     },
   }),
 
-  archiveThread: (threadID, labels) => ({
+  archiveThread: (threadID, labels, nextThreadID) => ({
     [NYLAS_API]: {
       endpoint: `threads/${ threadID }`,
       method: 'PUT',
       types: [ARCHIVE_REQUEST, ARCHIVE_SUCCESS, ARCHIVE_FAILURE],
       model: 'thread',
+      passthrough: {
+        nextThreadID,
+      },
       body: {
         label_ids: _(labels).reject({ name: 'inbox' }).map('id'),
       },
@@ -108,16 +121,30 @@ export const actions = {
   }),
 }
 
+const getAllThreads = state =>
+  state.allIds.map(id => state.byId[id])
+
 export const selectors = {
+  getInbox: (state) => {
+    return getAllThreads(state)
+  },
+
+  getNextThreadID: (state, currentID) => {
+    const index = _.indexOf(state.allIds, currentID)
+    return state.allIds[index + 1]
+  },
+
   getThreadByID: (state, id) => {
-    return _.find(state.threads, { id }) || {}
+    const threads = getAllThreads(state)
+    return _.find(threads, { id }) || {}
   },
 
   getActiveThread: (state) => {
-    return _.find(state.threads, { id: state.activeThreadID }) || {}
+    const threads = getAllThreads(state)
+    return _.find(threads, { id: selectors.getActiveThreadID(state) }) || {}
   },
 
   getActiveThreadID: (state) => {
-    return state.activeThreadID
+    return state.ui.activeThreadID
   },
 }

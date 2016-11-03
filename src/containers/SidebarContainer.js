@@ -5,7 +5,7 @@ import { actions } from '../reducers/threads'
 import Sidebar from '../components/sidebar/Sidebar'
 
 const mapStateToProps = state => ({
-  threads: state.threads.threads,
+  threads: selectors.getInbox(state),
   activeThreadID: selectors.getActiveThreadID(state),
 })
 

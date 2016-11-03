@@ -6,7 +6,7 @@ import { Box, Clickable, Icon, Textarea } from '../common'
 import ComposeDestinations from './ComposeDestinations'
 
 export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusReply,
-  blurReply, isReplyFocused, hover, lastMessage }) => {
+  blurReply, isReplyFocused, hover, lastMessage, nextThreadID }) => {
   const hasDraftBody = draft.body && draft.body.trim() !== ''
 
   const styles = reactCSS({
@@ -88,7 +88,7 @@ export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusR
   const isToMe = _.find(lastMessage.to, { 'email': 'case@casesandberg.com' })
   const to = isToMe ? lastMessage.from : lastMessage.to
 
-  const handleArchive = () => thread && archiveThread(thread.id, thread.labels)
+  const handleArchive = () => thread && archiveThread(thread.id, thread.labels, nextThreadID)
   const handleChange = (e) => {
     const replyBody = _.isString(e) ? e : e.target && e.target.value
     editDraft({
