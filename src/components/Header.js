@@ -34,7 +34,7 @@ export const Header = ({ title, toggleSidebar }) => {
           <Icon name="menu" />
         </Clickable>
       </Box>
-      <Text style={ styles.title }>{ title || 'Fetching...' }</Text>
+      <Text style={ styles.title }>{ title || 'Breathe...' }</Text>
     </Box>
   )
 }
