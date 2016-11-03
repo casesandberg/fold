@@ -8,14 +8,10 @@ export const Callback = ({ setToken }) => {
   const token = getFromURI('access_token')
   setToken(token)
 
-  // return token ? (
-  //   <Redirect to="/" />
-  // ) : (
-  //   <Redirect to="/login" />
-  // )
-
-  return (
-    <Text>Callback</Text>
+  return token ? (
+    <Redirect to="/" />
+  ) : (
+    <Redirect to="/login" />
   )
 }
 
