@@ -35,4 +35,10 @@ export const ComposeDestinations = ({ to, cc, bcc }) => {
   )
 }
 
+ComposeDestinations.defaultProps = {
+  to: [],
+  cc: [],
+  bcc: [],
+}
+
 export default ComposeDestinations

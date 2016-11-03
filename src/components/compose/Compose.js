@@ -7,6 +7,8 @@ import ComposeDestinations from './ComposeDestinations'
 
 export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusReply,
   blurReply, isReplyFocused, hover, lastMessage }) => {
+  const hasDraftBody = draft.body && draft.body.trim() !== ''
+
   const styles = reactCSS({
     'default': {
       actions: {
@@ -60,6 +62,11 @@ export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusR
         height: 24,
         cursor: 'pointer',
       },
+      destinations: {
+        maxHeight: 0,
+        overflow: 'hidden',
+        transition: 'max-height 100ms ease-out',
+      },
     },
     'hover': {
       actions: {
@@ -71,11 +78,15 @@ export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusR
         boxShadow: '0 4px 10px rgba(0,0,0,.2), 0 0 4px rgba(0,0,0,.2), 0px -20px 10px #fafafa',
       },
     },
-  }, { hover, focused: isReplyFocused })
+    'showDraft': {
+      destinations: {
+        maxHeight: 33,
+      },
+    },
+  }, { hover, focused: isReplyFocused, showDraft: isReplyFocused || hasDraftBody })
 
   const isToMe = _.find(lastMessage.to, { 'email': 'case@casesandberg.com' })
   const to = isToMe ? lastMessage.from : lastMessage.to
-  const hasDraftBody = draft.body && draft.body.trim() !== ''
 
   const handleArchive = () => thread && archiveThread(thread.id, thread.labels)
   const handleChange = (e) => {
@@ -105,9 +116,9 @@ export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusR
   return (
     <Box style={ styles.actions }>
       <Box style={ styles.replyWrap }>
-        { isReplyFocused || hasDraftBody ? (
+        <Box style={ styles.destinations }>
           <ComposeDestinations to={ to } cc={ lastMessage.cc } bcc={ lastMessage.bcc } />
-        ) : null }
+        </Box>
         <Textarea
           value={ draft.body || '' }
           onChange={ handleChange }
