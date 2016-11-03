@@ -3,18 +3,17 @@ import { selectors } from '../reducers'
 import { actions as threadActions } from '../reducers/threads'
 import { actions as messageActions } from '../reducers/messages'
 
-import Triage from '../components/Triage'
+import Compose from '../components/compose/Compose'
 
 const mapStateToProps = state => ({
   thread: selectors.getActiveThread(state),
-  messages: selectors.getMessagesByThreadID(state, selectors.getActiveThreadID(state)),
-  isSidebarVisible: state.app.isSidebarVisible,
-  activeEmailDisplay: state.messages.ui.activeEmailDisplay,
+  draft: state.messages.drafts[selectors.getActiveThreadID(state)] || {},
+  isReplyFocused: state.messages.ui.isReplyFocused,
 })
 
-const TriageContainer = connect(
+const ComposeContainer = connect(
   mapStateToProps,
   { ...threadActions, ...messageActions }
-)(Triage)
+)(Compose)
 
-export default TriageContainer
+export default ComposeContainer

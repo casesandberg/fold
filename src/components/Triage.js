@@ -5,19 +5,18 @@ import { Platform } from 'react-native'
 
 import { Box } from './common'
 import Messages from './messages/Messages'
-import ThreadActions from './thread/ThreadActions'
 import SidebarContainer from '../containers/SidebarContainer'
 import HeaderContainer from '../containers/HeaderContainer'
+import ComposeContainer from '../containers/ComposeContainer'
 
 export class Triage extends React.Component {
   componentDidMount() {
     this.props.getThreads().then(({ threads }) => {
-      this.props.showThread(threads[0].id)
+      this.props.showThread('edxjoxv0e86mez97jz9dz4h4w' || '9hmomtkespdrbkdvv7odrf9wp' || threads[0].id)
     })
   }
   render() {
-    const { thread, messages, archiveThread, getMessages,
-      isSidebarVisible, editDraft, draft, reply, activeEmailDisplay,
+    const { thread, messages, getMessages, isSidebarVisible, activeEmailDisplay,
       uncollapseAll, openMessage } = this.props
 
     const styles = reactCSS({
@@ -96,13 +95,7 @@ export class Triage extends React.Component {
           </Box>
 
           <Box style={ styles.actions }>
-            <ThreadActions
-              thread={ thread }
-              archiveThread={ archiveThread }
-              editDraft={ editDraft }
-              draft={ draft }
-              reply={ reply }
-            />
+            <ComposeContainer />
           </Box>
         </Box>
       </Box>

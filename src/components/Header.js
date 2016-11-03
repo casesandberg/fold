@@ -22,6 +22,7 @@ export const Header = ({ title, toggleSidebar }) => {
       },
       iconWrap: {
         paddingRight: 17,
+        paddingLeft: 8,
       },
     },
   })

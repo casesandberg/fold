@@ -6,6 +6,8 @@ import { displayVisibility } from '../helpers/messages'
 export const EDIT_DRAFT = 'MESSAGES/EDIT_DRAFT'
 export const UNCOLLAPSE_ALL = 'MESSAGES/UNCOLLAPSE_ALL'
 export const OPEN_MESSAGE = 'MESSAGES/OPEN_MESSAGE'
+export const FOCUS_REPLY = 'MESSAGES/FOCUS_REPLY'
+export const BLUR_REPLY = 'MESSAGES/BLUR_REPLY'
 
 export const MESSAGES_REQUEST = 'MESSAGES/MESSAGES_REQUEST'
 export const MESSAGES_SUCCESS = 'MESSAGES/MESSAGES_SUCCESS'
@@ -64,6 +66,7 @@ const drafts = (state = {}, action) => {
 
 const initialUIState = {
   activeEmailDisplay: {},
+  isReplyFocused: false,
 }
 
 const ui = (state = initialUIState, action) => {
@@ -79,6 +82,10 @@ const ui = (state = initialUIState, action) => {
     }
     case OPEN_MESSAGE:
       return { ...state, activeEmailDisplay: { ...state.activeEmailDisplay, [action.id]: 'open' } }
+    case FOCUS_REPLY:
+      return { ...state, isReplyFocused: true }
+    case BLUR_REPLY:
+      return { ...state, isReplyFocused: false }
     default: return state
   }
 }
@@ -112,6 +119,8 @@ export const actions = {
   editDraft: message => ({ type: EDIT_DRAFT, message }), // eslint-disable-line no-shadow
   uncollapseAll: () => ({ type: UNCOLLAPSE_ALL }),
   openMessage: id => ({ type: OPEN_MESSAGE, id }),
+  focusReply: () => ({ type: FOCUS_REPLY }),
+  blurReply: () => ({ type: BLUR_REPLY }),
 }
 
 const getAllMessages = state =>
