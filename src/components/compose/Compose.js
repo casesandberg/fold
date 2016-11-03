@@ -3,9 +3,10 @@ import reactCSS, { hover as handleHover } from 'reactcss'
 import _ from 'lodash'
 
 import { Box, Clickable, Icon, Textarea } from '../common'
+import ComposeDestinations from './ComposeDestinations'
 
 export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusReply,
-  blurReply, isReplyFocused, hover }) => {
+  blurReply, isReplyFocused, hover, lastMessage }) => {
   const styles = reactCSS({
     'default': {
       actions: {
@@ -32,6 +33,7 @@ export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusR
       replyWrap: {
         flex: 1,
         display: 'flex',
+        flexDirection: 'column',
       },
       reply: {
         fontSize: 16,
@@ -71,17 +73,27 @@ export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusR
     },
   }, { hover, focused: isReplyFocused })
 
+  const isToMe = _.find(lastMessage.to, { 'email': 'case@casesandberg.com' })
+  const to = isToMe ? lastMessage.from : lastMessage.to
+  const hasDraftBody = draft.body && draft.body.trim() !== ''
+
   const handleArchive = () => thread && archiveThread(thread.id, thread.labels)
-  const handleChange = e => editDraft({
-    'body': _.isString(e) ? e : e.target && e.target.value,
-    'reply_to_message_id': thread.message_ids[thread.message_ids.length - 1],
+  const handleChange = (e) => {
+    const replyBody = _.isString(e) ? e : e.target && e.target.value
+    editDraft({
+      'body': replyBody,
+      'thread_id': thread.id,
+    })
+  }
+
+  const handleSend = () => reply({
+    ...draft,
+    'body': `${ draft.body }\n<blockquote>${ lastMessage.body }</blockquote>`,
+    'reply_to_message_id': lastMessage.id,
     'thread_id': thread.id,
-    'to': [
-      {
-        'name': 'Case',
-        'email': 'case@casesandberg.com',
-      },
-    ],
+    'to': to,
+    'cc': lastMessage.cc,
+    'bcc': lastMessage.bcc,
     'from': [
       {
         'name': 'Case',
@@ -90,11 +102,12 @@ export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusR
     ],
   })
 
-  const handleSend = () => reply(draft)
-
   return (
     <Box style={ styles.actions }>
       <Box style={ styles.replyWrap }>
+        { isReplyFocused || hasDraftBody ? (
+          <ComposeDestinations to={ to } cc={ lastMessage.cc } bcc={ lastMessage.bcc } />
+        ) : null }
         <Textarea
           value={ draft.body || '' }
           onChange={ handleChange }
@@ -106,7 +119,7 @@ export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusR
       </Box>
 
       <Box style={ styles.buttons }>
-        { draft && draft.body && draft.body.trim() !== '' ? (
+        { hasDraftBody ? (
           <Clickable onClick={ handleSend }>
             <Box style={ styles.button }>
               <Icon name="send" />

@@ -12,7 +12,7 @@ import ComposeContainer from '../containers/ComposeContainer'
 export class Triage extends React.Component {
   componentDidMount() {
     this.props.getThreads().then(({ threads }) => {
-      this.props.showThread('edxjoxv0e86mez97jz9dz4h4w' || '9hmomtkespdrbkdvv7odrf9wp' || threads[0].id)
+      this.props.showThread(threads[0].id)
     })
   }
   render() {
