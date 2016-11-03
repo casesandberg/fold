@@ -7,11 +7,15 @@ import SquashedMessages from './SquashedMessages'
 
 export class Messages extends React.Component {
   componentDidMount() {
-    this.props.getMessages(this.props.thread.message_ids)
+    this.props.getMessages(this.props.thread.message_ids).then(
+      this.props.markThreadAsRead(this.props.thread.id)
+    )
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.thread.id !== nextProps.thread.id) {
-      this.props.getMessages(nextProps.thread.message_ids)
+      this.props.getMessages(nextProps.thread.message_ids).then(
+        this.props.markThreadAsRead(this.props.thread.id)
+      )
     }
   }
   render() {

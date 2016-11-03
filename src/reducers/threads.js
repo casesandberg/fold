@@ -3,16 +3,16 @@ import { NYLAS_API } from 'redux-nylas-middleware'
 
 import * as MESSAGES from './messages'
 
-export const GET_THREADS = 'THREADS/GET_THREADS'
 export const SHOW_THREAD = 'THREADS/SHOW_THREAD'
+export const MARK_THREAD_AS_READ = 'THREADS/MARK_THREAD_AS_READ'
 
-export const REMOVE_REQUEST = 'THREADS/REMOVE_REQUEST'
-export const REMOVE_SUCCESS = 'THREADS/REMOVE_SUCCESS'
-export const REMOVE_FAILURE = 'THREADS/REMOVE_FAILURE'
+export const ARCHIVE_REQUEST = 'THREADS/ARCHIVE_REQUEST'
+export const ARCHIVE_SUCCESS = 'THREADS/ARCHIVE_SUCCESS'
+export const ARCHIVE_FAILURE = 'THREADS/ARCHIVE_FAILURE'
 
-export const THREADS_REQUEST = 'THREADS/THREADS_REQUEST'
-export const THREADS_SUCCESS = 'THREADS/THREADS_SUCCESS'
-export const THREADS_FAILURE = 'THREADS/THREADS_FAILURE'
+export const GET_INBOX_REQUEST = 'THREADS/GET_INBOX_REQUEST'
+export const GET_INBOX_SUCCESS = 'THREADS/GET_INBOX_SUCCESS'
+export const GET_INBOX_FAILURE = 'THREADS/GET_INBOX_FAILURE'
 
 export const initialState = {
   activeThreadID: '',
@@ -32,9 +32,9 @@ export default function threads(state = initialState, action) {
   switch (action.type) {
     case SHOW_THREAD:
       return { ...state, activeThreadID: action.id }
-    case THREADS_SUCCESS:
+    case GET_INBOX_SUCCESS:
       return { ...state, threads: action.threads }
-    case REMOVE_SUCCESS: {
+    case ARCHIVE_SUCCESS: {
       const index = _.findIndex(state.threads, thread => (thread.id === action.thread.id)) // eslint-disable-line no-shadow, max-len
 
       return {
@@ -65,7 +65,7 @@ export const actions = {
   getThreads: () => ({
     [NYLAS_API]: {
       endpoint: 'threads?in=inbox',
-      types: [THREADS_REQUEST, THREADS_SUCCESS, THREADS_FAILURE],
+      types: [GET_INBOX_REQUEST, GET_INBOX_SUCCESS, GET_INBOX_FAILURE],
       model: 'threads',
     },
   }),
@@ -74,7 +74,7 @@ export const actions = {
     [NYLAS_API]: {
       endpoint: `threads/${ threadID }`,
       method: 'PUT',
-      types: [REMOVE_REQUEST, REMOVE_SUCCESS, REMOVE_FAILURE],
+      types: [ARCHIVE_REQUEST, ARCHIVE_SUCCESS, ARCHIVE_FAILURE],
       model: 'thread',
       body: {
         label_ids: _(labels).reject({ name: 'inbox' }).map('id'),
@@ -83,6 +83,17 @@ export const actions = {
   }),
 
   showThread: id => ({ type: SHOW_THREAD, id }),
+  markThreadAsRead: id => ({
+    [NYLAS_API]: {
+      endpoint: `threads/${ id }`,
+      method: 'PUT',
+      types: [null, MARK_THREAD_AS_READ, null],
+      model: 'thread',
+      body: {
+        unread: false,
+      },
+    },
+  }),
 }
 
 export const selectors = {
