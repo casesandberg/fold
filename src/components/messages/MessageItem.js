@@ -39,13 +39,13 @@ export const MessageItem = ({ id, body, from, snippet, date, visibility,
 
   const message = {
     open: (
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <Box style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <MessageItemHead from={ from[0] } timestamp={ date } />
         <FullFrame
           style={{ border: 'none', flex: 1 }}
           body={ visibility === 'open' && formatEmail(body) }
         />
-      </div>
+      </Box>
     ),
     closed: (
       <MessageItemSnippet

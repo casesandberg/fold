@@ -6,12 +6,10 @@ import { BrowserRouter, Match } from 'react-router'
 
 import configureStore from './store/configureStore'
 
-
 import TriageContainer from './containers/TriageContainer'
 import Callback from './components/auth/Callback'
 import Login from './components/auth/Login'
 import MatchWhenAuthorized from './components/auth/MatchWhenAuthorized'
-
 
 render(
   <Provider store={ configureStore() }>

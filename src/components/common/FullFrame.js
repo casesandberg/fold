@@ -14,12 +14,12 @@ export class FullFrame extends React.Component {
   }
   mount = (e) => {
     const iframe = e.target
-    if (iframe) {
-      const height = iframe.contentWindow.document.body.scrollHeight
-      this.setState({ height })
-    } if (e.title) {
+    if (e.title) {
       const height = parseInt(e.title, 10)
       if (height > 0) { this.setState({ height }) }
+    } else if (iframe) {
+      const height = iframe.contentWindow.document.body.scrollHeight
+      this.setState({ height })
     }
   }
   render() {

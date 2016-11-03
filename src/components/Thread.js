@@ -6,7 +6,7 @@ import Messages from './messages/Messages'
 import HeaderContainer from '../containers/HeaderContainer'
 import ComposeContainer from '../containers/ComposeContainer'
 
-export class Triage extends React.Component {
+export class Thread extends React.Component {
   componentDidMount() {
     this.props.getThreads().then(({ threads }) => {
       this.props.showThread(threads[0].id)
@@ -104,4 +104,4 @@ export class Triage extends React.Component {
   }
 }
 
-export default Triage
+export default Thread
