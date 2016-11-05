@@ -20,3 +20,9 @@ export default function app(state = initialState, action) {
 export const actions = {
   toggleSidebar: () => ({ type: TOGGLE_SIDEBAR }),
 }
+
+export const selectors = {
+  getSidebarVisibility: (state) => {
+    return state.isSidebarVisible
+  },
+}

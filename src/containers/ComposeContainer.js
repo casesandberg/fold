@@ -13,8 +13,8 @@ const mapStateToProps = (state) => {
     lastMessageID,
     lastMessage: selectors.getMessageByID(state, lastMessageID) || {},
     nextThreadID: selectors.getNextThreadID(state, thread.id),
-    draft: state.messages.drafts[selectors.getActiveThreadID(state)] || {},
-    isReplyFocused: state.messages.ui.isReplyFocused,
+    draft: selectors.getDraftByID(state, selectors.getActiveThreadID(state)) || {},
+    isReplyFocused: selectors.getComposeFocus(state),
   }
 }
 

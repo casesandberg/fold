@@ -66,7 +66,7 @@ const drafts = (state = {}, action) => {
 
 const initialUIState = {
   activeEmailDisplay: {},
-  isReplyFocused: false,
+  isComposeFocused: false,
 }
 
 const ui = (state = initialUIState, action) => {
@@ -85,9 +85,9 @@ const ui = (state = initialUIState, action) => {
     case OPEN_MESSAGE:
       return { ...state, activeEmailDisplay: { ...state.activeEmailDisplay, [action.id]: 'open' } }
     case FOCUS_REPLY_BAR:
-      return { ...state, isReplyFocused: true }
+      return { ...state, isComposeFocused: true }
     case BLUR_REPLY_BAR:
-      return { ...state, isReplyFocused: false }
+      return { ...state, isComposeFocused: false }
     default: return state
   }
 }
@@ -135,5 +135,11 @@ export const selectors = {
   getMessagesByThreadID: (state, id) => {
     const allMessages = getAllMessages(state)
     return _.filter(allMessages, { thread_id: id }) || []
+  },
+  getDraftByID: (state, id) => {
+    return state.drafts[id]
+  },
+  getComposeFocus: (state) => {
+    return state.ui.isComposeFocused
   },
 }

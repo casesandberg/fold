@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { scopeStateToSelectors } from '../helpers/redux'
 
-import app from './app'
+import app, { selectors as appSelectors } from './app'
 import messages, { selectors as messagesSelectors } from './messages'
 import threads, { selectors as threadsSelectors } from './threads'
 
@@ -14,6 +14,7 @@ const rootReducer = combineReducers({
 export default rootReducer
 
 export const selectors = scopeStateToSelectors({
+  app: appSelectors,
   messages: messagesSelectors,
   threads: threadsSelectors,
 })
