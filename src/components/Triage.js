@@ -24,10 +24,10 @@ export class Triage extends React.Component { // eslint-disable-line
           right: 0,
           alignItems: 'stretch',
           flexDirection: 'row',
-          justifyContent: 'center',
         },
         sidebar: {
           width: 300,
+          minWidth: 300,
           overflow: 'scroll',
           marginRight: 30,
         },
