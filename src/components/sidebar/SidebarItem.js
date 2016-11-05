@@ -55,9 +55,10 @@ export const SidebarItem = ({ id, active, unread, last_message_timestamp, partic
           participants={ participants }
           unread={ unread }
           timestamp={ last_message_timestamp }
+          count={ message_ids.length }
         />
         <Box style={ styles.subject }>
-          <Text numberOfLines={ 1 }>{ subject } { message_ids.length > 1 ? `(${ message_ids.length })` : null }</Text>
+          <Text numberOfLines={ 1 }>{ subject }</Text>
         </Box>
         <Box style={ styles.snippet }>
           <Text numberOfLines={ 1 }>{ snippet }</Text>

@@ -5,7 +5,7 @@ import moment from 'moment-twitter'
 
 import { Box, Text } from '../common'
 
-export const SidebarItemHead = ({ unread, participants, timestamp }) => {
+export const SidebarItemHead = ({ unread, participants, timestamp, count }) => {
   const styles = reactCSS({
     'default': {
       head: {
@@ -34,6 +34,7 @@ export const SidebarItemHead = ({ unread, participants, timestamp }) => {
         { _.map(participants, (person, i) => {
           return <Text key={ i }>{ person.name } </Text>
         }) }
+        { count > 1 ? `(${ count })` : null }
       </Box>
       <Text style={ styles.time }>{ moment.unix(timestamp).twitter() }</Text>
     </Box>

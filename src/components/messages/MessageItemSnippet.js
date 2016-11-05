@@ -7,6 +7,10 @@ import { Box, Clickable, Text } from '../common'
 export const MessageItemSnippet = ({ from, snippet, timestamp, onClick }) => {
   const styles = reactCSS({
     'default': {
+      clickWrap: {
+        flex: 1,
+        minWidth: 0,
+      },
       wrap: {
         height: 54,
         display: 'flex',
@@ -35,7 +39,7 @@ export const MessageItemSnippet = ({ from, snippet, timestamp, onClick }) => {
   })
 
   return (
-    <Clickable onClick={ onClick } style={{ flex: 1, minWidth: 0 }}>
+    <Clickable onClick={ onClick } style={ styles.clickWrap }>
       <Box style={ styles.wrap }>
         <Box style={ styles.snippet }>
           <Text>

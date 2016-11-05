@@ -24,13 +24,17 @@ export const Header = ({ title, toggleSidebar }) => {
         paddingRight: 17,
         paddingLeft: 8,
       },
+      menuWrap: {
+        display: 'flex',
+        alignItems: 'center',
+      },
     },
   })
 
   return (
     <Box style={ styles.header }>
       <Box style={ styles.iconWrap }>
-        <Clickable onClick={ toggleSidebar } style={{ display: 'flex', alignItems: 'center' }}>
+        <Clickable onClick={ toggleSidebar } style={ styles.menuWrap }>
           <Icon name="menu" />
         </Clickable>
       </Box>

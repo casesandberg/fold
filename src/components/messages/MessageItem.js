@@ -27,6 +27,15 @@ export const MessageItem = ({ id, body, from, snippet, date, visibility,
         borderRadius: 2,
         display: 'flex',
       },
+      openMessage: {
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+      },
+      iframe: {
+        border: 'none',
+        flex: 1,
+      },
     },
     'collapsed': {
       message: {
@@ -39,10 +48,10 @@ export const MessageItem = ({ id, body, from, snippet, date, visibility,
 
   const message = {
     open: (
-      <Box style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <Box style={ styles.openMessage }>
         <MessageItemHead from={ from[0] } timestamp={ date } />
         <FullFrame
-          style={{ border: 'none', flex: 1 }}
+          style={ styles.iframe }
           body={ visibility === 'open' && formatEmail(body) }
         />
       </Box>

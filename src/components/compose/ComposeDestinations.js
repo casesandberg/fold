@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import { Box, Text } from '../common'
 
-export const ComposeDestinations = ({ to, cc, bcc }) => {
+export const ComposeDestinations = (props) => {
   const styles = reactCSS({
     'default': {
       wrap: {
@@ -16,21 +16,24 @@ export const ComposeDestinations = ({ to, cc, bcc }) => {
         marginRight: 10,
         color: '#aaa',
       },
+      label: {
+        textTransform: 'uppercase',
+      },
     },
   })
+
+  const fields = ['to', 'cc', 'bcc']
+
   return (
     <Box style={ styles.wrap }>
-      { to.length ? (
-        <Text style={ styles.item }>To: { _(to).map('name').join(', ') }</Text>
-      ) : null }
-
-      { cc.length ? (
-        <Text style={ styles.item }>CC: { _(cc).map('name').join(', ') }</Text>
-      ) : null }
-
-      { bcc.length ? (
-        <Text style={ styles.item }>BCC: { _(bcc).map('name').join(', ') }</Text>
-      ) : null }
+      { _.map(fields, field => (
+        props[field].length ? (
+          <Text style={ styles.item }>
+            <Text style={ styles.label }>{ field }: </Text>
+            { _(props[field]).map('name').join(', ') }
+          </Text>
+        ) : null
+      )) }
     </Box>
   )
 }
