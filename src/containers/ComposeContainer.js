@@ -5,18 +5,13 @@ import { actions as messageActions } from '../reducers/messages'
 
 import Compose from '../components/compose/Compose'
 
-const mapStateToProps = (state) => {
-  const thread = selectors.getActiveThread(state) || {}
-  const lastMessageID = thread.id && thread.message_ids[thread.message_ids.length - 1]
-  return {
-    thread,
-    lastMessageID,
-    lastMessage: selectors.getMessageByID(state, lastMessageID) || {},
-    nextThreadID: selectors.getNextThreadID(state, thread.id),
-    draft: selectors.getDraftByID(state, selectors.getActiveThreadID(state)) || {},
-    isReplyFocused: selectors.getComposeFocus(state),
-  }
-}
+const mapStateToProps = state => ({
+  thread: selectors.getActiveThread(state) || {},
+  lastMessage: selectors.getLastMessageByThread(state, selectors.getActiveThread(state) || {}),
+  nextThreadID: selectors.getNextThreadID(state, selectors.getActiveThread(state).id),
+  draft: selectors.getDraftByID(state, selectors.getActiveThreadID(state)) || {},
+  isReplyFocused: selectors.getComposeFocus(state),
+})
 
 const ComposeContainer = connect(
   mapStateToProps,

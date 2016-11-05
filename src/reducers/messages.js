@@ -146,4 +146,7 @@ export const selectors = {
   getComposeFocus: (state) => {
     return state.ui.isComposeFocused
   },
+  getLastMessageByThread: (state, thread) => {
+    return selectors.getMessageByID(state, _.last(thread.message_ids)) || {}
+  },
 }
