@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import _ from 'lodash'
 import { combineReducers } from 'redux'
 import { NYLAS_API } from 'redux-nylas-middleware'
@@ -17,18 +18,44 @@ export const SEND_REQUEST = 'MESSAGES/SEND_REQUEST'
 export const SEND_SUCCESS = 'MESSAGES/SEND_SUCCESS'
 export const SEND_FAILURE = 'MESSAGES/SEND_FAILURE'
 
+const message = (state = {}, action) => {
+  switch (action.type) {
+    case EDIT_DRAFT: {
+      return { ...state, ...action.message }
+    }
+    case OPEN_MESSAGE:
+    case SEND_SUCCESS:
+      return { ...state, visibility: 'open' }
+    case UNCOLLAPSE_ALL:
+      return { ...state, visibility: 'closed' }
+    default: return state
+  }
+}
+
 const byId = (state = {}, action) => {
   switch (action.type) {
     case GET_MESSAGES_SUCCESS: {
-      const messages = _.reduce(action.messages, (all, message) => {
-        all[message.id] = message // eslint-disable-line no-param-reassign
+      const visibility = displayVisibility(action.messages)
+      const messages = _.reduce(action.messages, (all, m) => {
+        all[m.id] = { ...m, visibility: visibility[m.id] }
         return all
       }, {})
 
       return { ...state, ...messages }
     }
+    case UNCOLLAPSE_ALL: {
+      return {
+        ...state,
+        ..._.reduce(action.ids, (all, id) => {
+          all[id] = message(state[id], action)
+          return all
+        }, {}),
+      }
+    }
+    case OPEN_MESSAGE:
+      return { ...state, [action.id]: message(state[action.id], action) }
     case SEND_SUCCESS:
-      return { ...state, [action.message.id]: action.message }
+      return { ...state, [action.message.id]: message(action.message, action) }
     default: return state
   }
 }
@@ -39,15 +66,6 @@ const allIds = (state = [], action) => {
       return _.union(state, _.map(action.messages, 'id'))
     case SEND_SUCCESS:
       return [...state, action.message.id]
-    default: return state
-  }
-}
-
-const message = (state = {}, action) => {
-  switch (action.type) {
-    case EDIT_DRAFT: {
-      return { ...state, ...action.message }
-    }
     default: return state
   }
 }
@@ -65,25 +83,11 @@ const drafts = (state = {}, action) => {
 }
 
 const initialUIState = {
-  activeEmailDisplay: {},
   isComposeFocused: false,
 }
 
 const ui = (state = initialUIState, action) => {
   switch (action.type) {
-    case GET_MESSAGES_SUCCESS:
-      return { ...state, activeEmailDisplay: displayVisibility(action.messages) }
-    case UNCOLLAPSE_ALL: {
-      const display = _.reduce(state.activeEmailDisplay, (obj, dis, id) => {
-        obj[id] = dis === 'open' ? 'open' : 'closed' // eslint-disable-line no-param-reassign
-        return obj
-      }, {})
-      return { ...state, activeEmailDisplay: display }
-    }
-    case SEND_SUCCESS:
-      return { ...state, activeEmailDisplay: { ...state.activeEmailDisplay, [action.message.id]: 'open' } }
-    case OPEN_MESSAGE:
-      return { ...state, activeEmailDisplay: { ...state.activeEmailDisplay, [action.id]: 'open' } }
     case FOCUS_REPLY_BAR:
       return { ...state, isComposeFocused: true }
     case BLUR_REPLY_BAR:
@@ -119,7 +123,7 @@ export const actions = {
   }),
 
   editDraft: message => ({ type: EDIT_DRAFT, message }), // eslint-disable-line no-shadow
-  uncollapseAll: () => ({ type: UNCOLLAPSE_ALL }),
+  uncollapseAll: ids => ({ type: UNCOLLAPSE_ALL, ids }),
   openMessage: id => ({ type: OPEN_MESSAGE, id }),
   focusReply: () => ({ type: FOCUS_REPLY_BAR }),
   blurReply: () => ({ type: BLUR_REPLY_BAR }),

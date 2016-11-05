@@ -13,8 +13,8 @@ export class Thread extends React.Component {
     })
   }
   render() {
-    const { thread, messages, getMessages, activeEmailDisplay,
-      uncollapseAll, openMessage, markThreadAsRead } = this.props
+    const { thread, messages, getMessages, uncollapseAll, openMessage,
+      markThreadAsRead } = this.props
 
     const styles = reactCSS({
       'default': {
@@ -84,7 +84,6 @@ export class Thread extends React.Component {
                   getMessages={ getMessages }
                   thread={ thread }
                   messages={ messages }
-                  activeEmailDisplay={ activeEmailDisplay }
                   uncollapseAll={ uncollapseAll }
                   openMessage={ openMessage }
                   markThreadAsRead={ markThreadAsRead }

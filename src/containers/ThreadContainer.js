@@ -8,7 +8,6 @@ import Thread from '../components/Thread'
 const mapStateToProps = state => ({
   thread: selectors.getActiveThread(state),
   messages: selectors.getMessagesByThreadID(state, selectors.getActiveThreadID(state)),
-  activeEmailDisplay: state.messages.ui.activeEmailDisplay,
 })
 
 const ThreadContainer = connect(
