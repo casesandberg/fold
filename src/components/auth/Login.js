@@ -15,7 +15,7 @@ export class Login extends React.Component {
       this.context.router.transitionTo(`/callback${ url }`)
       Linking.removeEventListener('url', handleUrl)
     }
-    Linking.addEventListener('url', handleUrl)
+    Linking && Linking.addEventListener('url', handleUrl)
   }
   render() { // eslint-disable-line
     const styles = reactCSS({
@@ -52,7 +52,6 @@ export class Login extends React.Component {
       client_id: '7vv3n35607oxmk8ztn1jpwghc',
       response_type: 'token',
       scope: 'email',
-      login_hint: 'case@casesandberg.com',
       redirect_uri: Platform.OS === 'web' ? 'http://localhost:8517/callback' : 'fold://callback',
     }
 
