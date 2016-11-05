@@ -1,26 +1,12 @@
-/* eslint-disable */
+import path from 'path'
+import validate from 'webpack-validator'
 
-var path = require('path')
-var validate = require('webpack-validator')
-
-module.exports = validate({
+export default validate({
   module: {
     loaders: [{
       test: /\.js?$/,
       loader: 'babel',
       exclude: /node_modules/,
-      query: {
-        presets: [
-          'es2015',
-          'stage-0',
-          'react'
-        ],
-        env: {
-          development: {
-            presets: ['react-hmre']
-          },
-        }
-      }
     }],
   },
 
@@ -32,7 +18,7 @@ module.exports = validate({
   resolve: {
     alias: {
       'react-native': path.resolve(__dirname, './fake.react-native.js'),
-      'react-native-svg': path.resolve(__dirname, './fake.react-native-svg.js')
+      'react-native-svg': path.resolve(__dirname, './fake.react-native-svg.js'),
     },
     extensions: ['', '.js'],
   },
