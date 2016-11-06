@@ -1,6 +1,7 @@
 import React from 'react'
 import reactCSS from 'reactcss'
 
+import { Platform } from 'react-native'
 import { Box } from './common'
 import Messages from './messages/Messages'
 import HeaderContainer from '../containers/HeaderContainer'
@@ -19,7 +20,6 @@ export class Thread extends React.Component {
     const styles = reactCSS({
       'default': {
         wrap: {
-          // maxWidth: '100%',
           boxSizing: 'border-box',
           flex: 1,
           paddingRight: 10,
@@ -37,7 +37,6 @@ export class Thread extends React.Component {
         header: {
           maxWidth: 630,
           minWidth: 300,
-          // width: '100%',
         },
         thread: {
           display: 'flex',
@@ -45,7 +44,6 @@ export class Thread extends React.Component {
           alignItems: 'center',
         },
         messages: {
-          // width: '100%',
           maxWidth: 630,
           minWidth: 300,
           paddingRight: 10,
@@ -56,7 +54,6 @@ export class Thread extends React.Component {
           marginTop: -10,
           paddingBottom: 100,
         },
-
         bottom: {
           position: 'relative',
           zIndex: 2,
@@ -69,7 +66,18 @@ export class Thread extends React.Component {
           flex: 1,
         },
       },
-    })
+      'web': {
+        wrap: {
+          maxWidth: '100%',
+        },
+        header: {
+          width: '100%',
+        },
+        messages: {
+          width: '100%',
+        },
+      },
+    }, { web: Platform.OS === 'web' })
 
     return (
       <Box style={ styles.wrap }>
