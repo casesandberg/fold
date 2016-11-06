@@ -1,7 +1,9 @@
 /* global NYLAS_APP_ID */
 import React from 'react'
 import reactCSS from 'reactcss'
-import { Platform, Linking } from 'react-native'
+import { connect } from 'react-redux'
+import { actions } from 'redux-nylas-middleware'
+import { Platform, Linking, AsyncStorage } from 'react-native'
 import { objToString } from '../../helpers/uri'
 
 import { Box, Clickable, Text } from '../common'
@@ -15,6 +17,12 @@ export class Login extends React.Component {
       const url = e.url.replace('fold://callback', '')
       this.context.router.transitionTo(`/callback${ url }`)
       Linking.removeEventListener('url', handleUrl)
+    }
+    if (typeof AsyncStorage !== 'undefined') {
+      AsyncStorage.getItem('access_token').then((token) => {
+        this.props.setToken(token)
+        this.context.router.transitionTo('/')
+      })
     }
     Linking && Linking.addEventListener('url', handleUrl)
   }
@@ -42,6 +50,7 @@ export class Login extends React.Component {
           paddingRight: 15,
           paddingLeft: 15,
           fontSize: 15,
+          marginTop: 50,
           color: '#aaa',
           textDecoration: 'none',
           fontWeight: 'bold',
@@ -80,4 +89,4 @@ Login.contextTypes = {
   router: React.PropTypes.object,
 }
 
-export default Login
+export default connect(() => ({}), actions)(Login)

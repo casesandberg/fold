@@ -1,4 +1,5 @@
 import React from 'react'
+import { Platform } from 'react-native'
 import reactCSS, { hover as handleHover } from 'reactcss'
 import { Path, Svg } from './'
 
@@ -16,11 +17,13 @@ export const Icon = ({ name, hover }) => {
         width: 24,
         height: 24,
         transition: 'fill 100ms ease-out',
+      },
+      path: {
         fill: '#aaa',
       },
     },
     'hover': {
-      svg: {
+      path: {
         fill: '#444',
       },
     },
@@ -29,9 +32,9 @@ export const Icon = ({ name, hover }) => {
   const icon = icons[name]
   return (
     <Svg style={ styles.svg } viewBox="0 0 24 24">
-      <Path d={ icon } />
+      <Path style={ styles.path } d={ icon } />
     </Svg>
   )
 }
 
-export default handleHover(Icon)
+export default Platform.OS === 'web' ? handleHover(Icon) : Icon

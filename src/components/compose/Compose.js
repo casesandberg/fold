@@ -1,4 +1,5 @@
 import React from 'react'
+import { Platform } from 'react-native'
 import reactCSS, { hover as handleHover } from 'reactcss'
 import _ from 'lodash'
 
@@ -151,4 +152,4 @@ export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusR
   )
 }
 
-export default handleHover(Compose)
+export default Platform.OS === 'web' ? handleHover(Compose) : Compose

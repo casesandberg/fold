@@ -9,6 +9,7 @@ import ThreadContainer from '../containers/ThreadContainer'
 
 export class Triage extends React.Component {
   componentDidMount() {
+    // AsyncStorage.clear() // RN Reset
     this.props.getAccount()
   }
 

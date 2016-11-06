@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import { Platform, TextInput } from 'react-native'
 
 export class Textarea extends React.Component {
@@ -15,9 +16,16 @@ export class Textarea extends React.Component {
     const mappedProps = Platform.OS === 'web' ? {} : {
       onChangeText: this.props.onChange,
     }
+
+    const filteredProps = Platform.OS === 'web' ? this.props : {
+      ...this.props,
+      style: _.omit(this.props.style, ['border', 'boxSizing', 'outline', 'resize',
+        'WebkitBoxFlex', 'MozBoxFlex', 'WebkitFlex', 'msFlex', 'background']),
+    }
+
     return (
       <Component
-        { ...this.props }
+        { ...filteredProps }
         ref={ t => this.textarea = t }
         onChange={ handleChange }
         { ...mappedProps }

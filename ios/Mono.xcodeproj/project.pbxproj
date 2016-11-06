@@ -765,6 +765,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.Fold;
 				PRODUCT_NAME = Mono;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -789,6 +790,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.Fold;
 				PRODUCT_NAME = Mono;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

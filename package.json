@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development node -r babel-register -r dotenv/config scripts/server.js",
-    "native": "node node_modules/.bin/react-native start",
+    "native": "cross-env NODE_ENV=native node node_modules/.bin/react-native start",
+    "native-reset": "npm run native -- --reset-cache",
     "unit-test": "node_modules/.bin/jest"
   },
   "author": "",

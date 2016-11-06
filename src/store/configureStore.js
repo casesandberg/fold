@@ -17,10 +17,8 @@ const enhancer = compose(
   )
 )
 
-const nativeToken = typeof AsyncStorage !== 'undefined' &&
-  AsyncStorage.getItem('access_token')
 const token = typeof localStorage !== 'undefined' && localStorage.getItem('access_token')
-const state = { app: { accessToken: token || nativeToken } }
+const state = { app: { accessToken: token } }
 export default function configureStore(initialState = state) {
   const store = createStore(rootReducer, initialState, enhancer)
 

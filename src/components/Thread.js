@@ -9,7 +9,7 @@ import ComposeContainer from '../containers/ComposeContainer'
 export class Thread extends React.Component {
   componentDidMount() {
     this.props.getThreads().then(({ threads }) => {
-      this.props.showThread(threads[0].id)
+      threads && this.props.showThread(threads[0].id)
     })
   }
   render() {
@@ -19,7 +19,7 @@ export class Thread extends React.Component {
     const styles = reactCSS({
       'default': {
         wrap: {
-          maxWidth: '100%',
+          // maxWidth: '100%',
           boxSizing: 'border-box',
           flex: 1,
           paddingRight: 10,
@@ -37,7 +37,7 @@ export class Thread extends React.Component {
         header: {
           maxWidth: 630,
           minWidth: 300,
-          width: '100%',
+          // width: '100%',
         },
         thread: {
           display: 'flex',
@@ -45,7 +45,7 @@ export class Thread extends React.Component {
           alignItems: 'center',
         },
         messages: {
-          width: '100%',
+          // width: '100%',
           maxWidth: 630,
           minWidth: 300,
           paddingRight: 10,
