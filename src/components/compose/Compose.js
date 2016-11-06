@@ -1,9 +1,8 @@
 import React from 'react'
-import { Platform } from 'react-native'
 import reactCSS, { hover as handleHover } from 'reactcss'
 import _ from 'lodash'
 
-import { Box, Clickable, Textarea } from 'react-universal'
+import { Box, Clickable, Textarea, Platform } from 'react-universal'
 import { Icon } from '../common'
 import ComposeDestinations from './ComposeDestinations'
 

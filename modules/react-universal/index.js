@@ -6,3 +6,5 @@ export { default as Path } from './src/Path'
 export { default as Svg } from './src/Svg'
 export { default as Text } from './src/Text'
 export { default as Textarea } from './src/Textarea'
+
+export { Platform } from 'react-native'

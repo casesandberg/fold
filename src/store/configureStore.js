@@ -2,12 +2,10 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 import createNylas from 'redux-nylas-middleware'
-import { Platform, AsyncStorage } from 'react-native'
 import rootReducer from '../reducers'
 
-
 const logger = createLogger({ level: 'info', collapsed: true })
-const nylas = createNylas({ storage: Platform.OS === 'web' ? localStorage : AsyncStorage })
+const nylas = createNylas()
 
 const enhancer = compose(
   applyMiddleware(

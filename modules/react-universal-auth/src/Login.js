@@ -5,9 +5,8 @@ import reactCSS from 'reactcss'
 import { connect } from 'react-redux'
 import { actions } from 'redux-nylas-middleware'
 import { Platform, Linking, AsyncStorage } from 'react-native'
+import { Box, Clickable, Text } from 'react-universal'
 import { objToString } from './helpers/uri'
-
-import { Box, Clickable, Text } from '../../../src/components/common'
 
 export class Login extends React.Component {
   state = {

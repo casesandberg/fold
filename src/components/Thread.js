@@ -1,8 +1,7 @@
 import React from 'react'
 import reactCSS from 'reactcss'
 
-import { Platform } from 'react-native'
-import { Box } from 'react-universal'
+import { Box, Platform } from 'react-universal'
 import Messages from './messages/Messages'
 import HeaderContainer from '../containers/HeaderContainer'
 import ComposeContainer from '../containers/ComposeContainer'
