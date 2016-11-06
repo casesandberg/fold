@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development node -r babel-register scripts/server.js",
+    "start": "cross-env NODE_ENV=development node -r babel-register -r dotenv/config scripts/server.js",
     "native": "node node_modules/.bin/react-native start",
     "unit-test": "node_modules/.bin/jest"
   },
@@ -23,6 +23,7 @@
     "babel-register": "^6.18.0",
     "concurrently": "^3.1.0",
     "cross-env": "^3.0.0",
+    "dotenv": "^2.0.0",
     "eslint": "^3.6.0",
     "eslint-config-airbnb": "^11.2.0",
     "eslint-plugin-import": "^1.16.0",

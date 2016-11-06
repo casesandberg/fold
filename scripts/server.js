@@ -23,8 +23,11 @@ app.get('*', (request, response) => {
   response.sendFile(path.resolve(__dirname, '../src', 'index.html'))
 })
 
-
 app.listen(PORT, 'localhost', (err) => {
   if (err) { console.error(err); return }
+  if (!process.env.NYLAS_APP_ID) {
+    console.log('ERROR: Missing .env with NYLAS_APP_ID')
+    return
+  }
   console.log(`Listening at http://localhost:${ PORT }`)
 })

@@ -23,6 +23,7 @@ export default validate(merge(baseConfig, {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
+      'NYLAS_APP_ID': JSON.stringify(process.env.NYLAS_APP_ID),
     }),
   ],
 }))

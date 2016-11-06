@@ -1,3 +1,4 @@
+/* global NYLAS_APP_ID */
 import React from 'react'
 import reactCSS from 'reactcss'
 import { Platform, Linking } from 'react-native'
@@ -49,7 +50,7 @@ export class Login extends React.Component {
     })
 
     const auth = {
-      client_id: '7vv3n35607oxmk8ztn1jpwghc',
+      client_id: NYLAS_APP_ID,
       response_type: 'token',
       scope: 'email',
       redirect_uri: Platform.OS === 'web' ? 'http://localhost:8517/callback' : 'fold://callback',
