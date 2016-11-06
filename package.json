@@ -1,7 +1,7 @@
 {
   "name": "fold",
   "version": "0.1.0",
-  "description": "",
+  "description": "Minimalist Email Client",
   "main": "src/index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development node -r babel-register -r dotenv/config scripts/server.js",
