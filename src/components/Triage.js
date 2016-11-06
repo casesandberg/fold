@@ -7,7 +7,11 @@ import { Box } from './common'
 import SidebarContainer from '../containers/SidebarContainer'
 import ThreadContainer from '../containers/ThreadContainer'
 
-export class Triage extends React.Component { // eslint-disable-line
+export class Triage extends React.Component {
+  componentDidMount() {
+    this.props.getAccount()
+  }
+
   render() {
     const { isSidebarVisible } = this.props
 

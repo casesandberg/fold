@@ -1,6 +1,8 @@
 import React from 'react'
 import reactCSS from 'reactcss'
+import _ from 'lodash'
 
+import ParticipantsContainer from '../../containers/ParticipantsContainer'
 import { Box, Clickable, Text } from '../common'
 
 export const SquashedMessages = ({ messages, onExpand }) => {
@@ -33,11 +35,15 @@ export const SquashedMessages = ({ messages, onExpand }) => {
     },
   })
 
+  const allPeople = _.map(messages, message => [...message.to, ...message.from, ...message.cc])
+  const participants = _.uniqBy(_.flatten(allPeople), 'email')
+
   return (
     <Clickable onClick={ onExpand }>
       <Box style={ styles.wrap }>
         <Text style={ styles.label }>
-          { messages ? `(${ messages.length }) ` : null }More Messages
+          { messages ? `(${ messages.length }) ` : null }
+          Messages Between <ParticipantsContainer participants={ participants } firstNames />
         </Text>
       </Box>
     </Clickable>

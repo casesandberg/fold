@@ -1,8 +1,8 @@
 import React from 'react'
 import reactCSS from 'reactcss'
-import _ from 'lodash'
 import moment from 'moment-twitter'
 
+import ParticipantsContainer from '../../containers/ParticipantsContainer'
 import { Box, Text } from '../common'
 
 export const SidebarItemHead = ({ unread, participants, timestamp, count }) => {
@@ -31,10 +31,8 @@ export const SidebarItemHead = ({ unread, participants, timestamp, count }) => {
   return (
     <Box style={ styles.head }>
       <Box style={ styles.people }>
-        { _.map(participants, (person, i) => {
-          return <Text key={ i }>{ person.name } </Text>
-        }) }
-        { count > 1 ? `(${ count })` : null }
+        <ParticipantsContainer participants={ participants } hideMe />
+        { count > 1 ? ` (${ count })` : null }
       </Box>
       <Text style={ styles.time }>{ moment.unix(timestamp).twitter() }</Text>
     </Box>

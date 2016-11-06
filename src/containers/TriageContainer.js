@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { selectors } from '../reducers'
-import { actions as threadActions } from '../reducers/threads'
-import { actions as messageActions } from '../reducers/messages'
+import { actions } from '../reducers/app'
 
 import Triage from '../components/Triage'
 
@@ -13,7 +12,7 @@ const mapStateToProps = state => ({
 
 const TriageContainer = connect(
   mapStateToProps,
-  { ...threadActions, ...messageActions }
+  actions
 )(Triage)
 
 export default TriageContainer

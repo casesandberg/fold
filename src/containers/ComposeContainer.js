@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
   nextThreadID: selectors.getNextThreadID(state, selectors.getActiveThread(state).id),
   draft: selectors.getDraftByID(state, selectors.getActiveThreadID(state)) || {},
   isReplyFocused: selectors.getComposeFocus(state),
+  account: selectors.getAccount(state),
 })
 
 const ComposeContainer = connect(
