@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { scopeStateToSelectors } from '../helpers/redux'
+import { scopeStateToSelectors } from 'redux-selector'
 
 import app, { selectors as appSelectors } from './app'
 import messages, { selectors as messagesSelectors } from './messages'
