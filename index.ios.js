@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { AppRegistry } from 'react-native'
 import { Provider } from 'react-redux'
-import { MemoryRouter, Match } from 'react-router'
+import { MemoryRouter } from 'react-router'
+import { AuthComponents, MatchWhenAuthorized } from 'react-universal-auth'
 import configureStore from './src/store/configureStore'
 
 import TriageContainer from './src/containers/TriageContainer'
-import Callback from './src/components/auth/Callback'
-import Login from './src/components/auth/Login'
-import MatchWhenAuthorized from './src/components/auth/MatchWhenAuthorized'
 
 import { Box } from './src/components/common'
 
@@ -18,8 +16,7 @@ export default class Mono extends Component { // eslint-disable-line
         <MemoryRouter>
           <Box>
             <MatchWhenAuthorized exactly pattern="/" component={ TriageContainer } />
-            <Match pattern="/callback" component={ Callback } />
-            <Match pattern="/login" component={ Login } />
+            { AuthComponents }
           </Box>
         </MemoryRouter>
       </Provider>

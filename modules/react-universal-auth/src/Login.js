@@ -1,12 +1,13 @@
+// TODO: Decouple from App
 /* global NYLAS_APP_ID */
 import React from 'react'
 import reactCSS from 'reactcss'
 import { connect } from 'react-redux'
 import { actions } from 'redux-nylas-middleware'
 import { Platform, Linking, AsyncStorage } from 'react-native'
-import { objToString } from '../../helpers/uri'
+import { objToString } from './helpers/uri'
 
-import { Box, Clickable, Text } from '../common'
+import { Box, Clickable, Text } from '../../../src/components/common'
 
 export class Login extends React.Component {
   state = {

@@ -15,7 +15,7 @@ module.exports = {
   },
   rules: {
     'react/jsx-curly-spacing': [ERROR, ALWAYS, { spacing: { objectLiterals: NEVER }}],
-    "react/jsx-filename-extension": [IGNORE],
+    'react/jsx-filename-extension': [IGNORE],
     'react/prop-types': [IGNORE],
     'template-curly-spacing': [ERROR, ALWAYS],
     'strict': [IGNORE],
@@ -27,7 +27,7 @@ module.exports = {
     'quote-props': [ERROR, 'consistent'],
     'no-underscore-dangle': [WARN],
     'semi': [ERROR, NEVER],
-    'import/no-unresolved': [ERROR],
+    'import/no-unresolved': [ERROR, { ignore: ['react-universal', 'react-universal-auth'] }],
     'new-cap': [IGNORE],
     'jsx-a11y/no-static-element-interactions': [IGNORE],
     'import/no-named-as-default': [IGNORE],
@@ -35,5 +35,5 @@ module.exports = {
     'react/require-extension': OFF,
     'no-return-assign': IGNORE,
     'import/prefer-default-export': IGNORE,
-  },
+  }
 }
