@@ -1,4 +1,5 @@
 import React from 'react'
+import { Platform } from 'react-native'
 
 import Iframe from './Iframe'
 
@@ -23,13 +24,16 @@ export class FullFrame extends React.Component {
     }
   }
   render() {
+    const mappedProps = Platform.OS === 'web' ? {} : {
+      onNavigationStateChange: this.mount,
+      injectedJavaScript: 'window.location.hash = 1;document.title = document.height;',
+    }
     return (
       <Iframe
         style={{ ...this.props.style, height: this.state.height, display: 'block', flex: 1 }}
         srcDoc={ this.props.body + additionalCSS }
         onLoad={ this.mount }
-        onNavigationStateChange={ this.mount }
-        injectedJavaScript="window.location.hash = 1;document.title = document.height;"
+        { ...mappedProps }
       />
     )
   }

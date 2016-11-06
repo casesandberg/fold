@@ -12,12 +12,15 @@ export class Textarea extends React.Component {
       // this.setState({ height })
       this.props.onChange(e)
     }
+    const mappedProps = Platform.OS === 'web' ? {} : {
+      onChangeText: this.props.onChange,
+    }
     return (
       <Component
         { ...this.props }
         ref={ t => this.textarea = t }
         onChange={ handleChange }
-        onChangeText={ this.props.onChange }
+        { ...mappedProps }
       >
         { this.props.children }
       </Component>

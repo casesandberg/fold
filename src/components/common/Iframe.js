@@ -3,7 +3,10 @@ import { Platform, WebView } from 'react-native'
 
 export const Iframe = (props) => {
   const Component = Platform.OS === 'web' ? 'iframe' : WebView
-  return <Component { ...props } source={{ html: props.srcDoc }} />
+  const mappedProps = Platform.OS === 'web' ? {} : {
+    source: { html: props.srcDoc },
+  }
+  return <Component { ...props } { ...mappedProps } />
 }
 
 export default Iframe

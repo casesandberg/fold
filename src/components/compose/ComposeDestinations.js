@@ -28,7 +28,7 @@ export const ComposeDestinations = (props) => {
     <Box style={ styles.wrap }>
       { _.map(fields, field => (
         props[field].length ? (
-          <Text style={ styles.item }>
+          <Text style={ styles.item } key={ field }>
             <Text style={ styles.label }>{ field }: </Text>
             { _(props[field]).map('name').join(', ') }
           </Text>

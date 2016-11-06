@@ -28,13 +28,12 @@ export class Messages extends React.Component {
       <Box>
         { _.map(messages, (message) => {
           return (
-            <Box>
+            <Box key={ message.id }>
               { message.id === squashedId ? (
                 <SquashedMessages messages={ squashedMessages } onExpand={ handleUncollapse } />
               ) : null }
               <MessageItem
                 openMessage={ openMessage }
-                key={ message.id }
                 { ...message }
               />
             </Box>

@@ -3,7 +3,10 @@ import { Platform, TextInput } from 'react-native'
 
 export const Input = (props) => {
   const Component = Platform.OS === 'web' ? 'input' : TextInput
-  return <Component { ...props } onChangeText={ props.onChange }>{ props.children }</Component>
+  const mappedProps = Platform.OS === 'web' ? {} : {
+    onChangeText: props.onChange,
+  }
+  return <Component { ...props } { ...mappedProps }>{ props.children }</Component>
 }
 
 export default Input
