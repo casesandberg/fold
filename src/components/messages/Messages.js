@@ -1,7 +1,8 @@
 import React from 'react'
 import _ from 'lodash'
 
-import { Box } from '../common'
+import { Box } from 'react-universal'
+
 import MessageItem from './MessageItem'
 import SquashedMessages from './SquashedMessages'
 

@@ -2,7 +2,7 @@ import React from 'react'
 import reactCSS from 'reactcss'
 import moment from 'moment-twitter'
 
-import { Box, Text } from '../common'
+import { Box, Text } from 'react-universal'
 
 export const MessageItemHead = ({ from, timestamp }) => {
   const styles = reactCSS({

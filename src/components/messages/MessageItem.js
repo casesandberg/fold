@@ -1,9 +1,10 @@
 import React from 'react'
 import reactCSS from 'reactcss'
+import { Box } from 'react-universal'
 import { formatEmail } from '../../helpers/email'
 
-import { Box } from '../common'
-import FullFrame from '../common/FullFrame'
+import { FullFrame } from '../common'
+
 import MessageItemSnippet from './MessageItemSnippet'
 import MessageItemHead from './MessageItemHead'
 

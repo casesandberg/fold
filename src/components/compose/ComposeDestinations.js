@@ -2,7 +2,7 @@ import React from 'react'
 import reactCSS from 'reactcss'
 import _ from 'lodash'
 
-import { Box, Text } from '../common'
+import { Box, Text } from 'react-universal'
 
 export const ComposeDestinations = (props) => {
   const styles = reactCSS({

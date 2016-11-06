@@ -2,8 +2,8 @@ import React from 'react'
 import reactCSS from 'reactcss'
 import _ from 'lodash'
 
+import { Box, Clickable, Text } from 'react-universal'
 import ParticipantsContainer from '../../containers/ParticipantsContainer'
-import { Box, Clickable, Text } from '../common'
 
 export const SquashedMessages = ({ messages, onExpand }) => {
   const styles = reactCSS({

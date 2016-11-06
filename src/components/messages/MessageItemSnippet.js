@@ -2,7 +2,7 @@ import React from 'react'
 import reactCSS from 'reactcss'
 import moment from 'moment-twitter'
 
-import { Box, Clickable, Text } from '../common'
+import { Box, Clickable, Text } from 'react-universal'
 
 export const MessageItemSnippet = ({ from, snippet, timestamp, onClick }) => {
   const styles = reactCSS({

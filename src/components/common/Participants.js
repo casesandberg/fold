@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 
-import Text from './Text'
+import { Text } from 'react-universal'
 
 export const PersonName = ({ account, participants, hideMe, firstNames }) => {
   const me = { email: account.email_address }

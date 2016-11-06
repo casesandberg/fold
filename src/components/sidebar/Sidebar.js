@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 
-import { Box } from '../common'
+import { Box } from 'react-universal'
 import SidebarItem from './SidebarItem'
 
 export const Sidebar = ({ threads, showThread, activeThreadID }) => {

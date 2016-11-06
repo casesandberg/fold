@@ -3,7 +3,7 @@
 import React from 'react'
 import reactCSS from 'reactcss'
 
-import { Box, Clickable, Text } from '../common'
+import { Box, Clickable, Text } from 'react-universal'
 import SidebarItemHead from './SidebarItemHead'
 
 export const SidebarItem = ({ id, active, unread, last_message_timestamp, participants, subject,

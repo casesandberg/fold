@@ -1,7 +1,8 @@
 import React from 'react'
 import reactCSS from 'reactcss'
 
-import { Box, Clickable, Icon, Text } from './common'
+import { Box, Clickable, Text } from 'react-universal'
+import { Icon } from './common'
 
 export const Header = ({ title, toggleSidebar }) => {
   const styles = reactCSS({

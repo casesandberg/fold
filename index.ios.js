@@ -3,11 +3,10 @@ import { AppRegistry } from 'react-native'
 import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router'
 import { AuthComponents, MatchWhenAuthorized } from 'react-universal-auth'
+import { Box } from 'react-universal'
 import configureStore from './src/store/configureStore'
 
 import TriageContainer from './src/containers/TriageContainer'
-
-import { Box } from './src/components/common'
 
 export default class Mono extends Component { // eslint-disable-line
   render() { // eslint-disable-line

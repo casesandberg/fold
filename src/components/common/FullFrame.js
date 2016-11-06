@@ -1,7 +1,7 @@
 import React from 'react'
 import { Platform } from 'react-native'
 
-import Iframe from './Iframe'
+import { Iframe } from 'react-universal'
 
 const additionalCSS = `
   <style>

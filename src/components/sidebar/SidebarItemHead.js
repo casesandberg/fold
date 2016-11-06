@@ -2,8 +2,8 @@ import React from 'react'
 import reactCSS from 'reactcss'
 import moment from 'moment-twitter'
 
+import { Box, Text } from 'react-universal'
 import ParticipantsContainer from '../../containers/ParticipantsContainer'
-import { Box, Text } from '../common'
 
 export const SidebarItemHead = ({ unread, participants, timestamp, count }) => {
   const styles = reactCSS({

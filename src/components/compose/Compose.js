@@ -3,7 +3,8 @@ import { Platform } from 'react-native'
 import reactCSS, { hover as handleHover } from 'reactcss'
 import _ from 'lodash'
 
-import { Box, Clickable, Icon, Textarea } from '../common'
+import { Box, Clickable, Textarea } from 'react-universal'
+import { Icon } from '../common'
 import ComposeDestinations from './ComposeDestinations'
 
 export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusReply,
