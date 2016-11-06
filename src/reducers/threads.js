@@ -5,6 +5,7 @@ import { combineReducers } from 'redux'
 import * as MESSAGES from './messages'
 
 export const SHOW_THREAD = 'THREADS/SHOW_THREAD'
+export const SNOOZE_THREAD = 'THREADS/SNOOZE_THREAD'
 export const MARK_THREAD_AS_READ = 'THREADS/MARK_THREAD_AS_READ'
 
 export const ARCHIVE_REQUEST = 'THREADS/ARCHIVE_REQUEST'
@@ -108,6 +109,7 @@ export const actions = {
   }),
 
   showThread: id => ({ type: SHOW_THREAD, id }),
+  snoozeThread: id => ({ type: SNOOZE_THREAD, id }),
   markThreadAsRead: id => ({
     [NYLAS_API]: {
       endpoint: `threads/${ id }`,

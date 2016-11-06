@@ -6,7 +6,7 @@ import { Box, Clickable, Icon, Textarea } from '../common'
 import ComposeDestinations from './ComposeDestinations'
 
 export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusReply,
-  blurReply, isReplyFocused, hover, lastMessage, nextThreadID, account }) => {
+  blurReply, isReplyFocused, hover, lastMessage, nextThreadID, account, snoozeThread }) => {
   const hasDraftBody = draft.body && draft.body.trim() !== ''
 
   const styles = reactCSS({
@@ -97,6 +97,8 @@ export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusR
     })
   }
 
+  const handleSnooze = () => snoozeThread(thread.id)
+
   const handleSend = () => reply({
     ...draft,
     'body': `${ draft.body }\n<blockquote>${ lastMessage.body }</blockquote>`,
@@ -137,7 +139,7 @@ export const Compose = ({ archiveThread, draft, thread, editDraft, reply, focusR
             </Box>
           </Clickable>
         ) : null }
-        <Box style={ styles.button } onClick={ handleArchive }>
+        <Box style={ styles.button } onClick={ handleSnooze }>
           <Icon name="clock" />
         </Box>
 
